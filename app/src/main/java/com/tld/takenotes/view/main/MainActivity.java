@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         // http://developer.android.com/guide/components/fragments.html
 
         //if (savedInstace == null)
-         //   getSupportFragmentManager().beginTransaction().add(R.id.detail_container, NoteFragment.newInstance()).commit();
+         //   getSupportFragmentManager().beginTransaction().add(R.id.detail_container, NoteFragment.newFragment()).commit();
 
 
         binding.setViewModel(viewModel);
