@@ -1,4 +1,4 @@
-package com.tld.takenotes.viewmodel.item;
+package com.tld.takenotes.viewmodel.note;
 
 import android.content.Context;
 
@@ -7,14 +7,19 @@ import androidx.databinding.ObservableField;
 import com.tld.takenotes.R;
 import com.tld.takenotes.model.entity.Note;
 
-public class ItemViewModel
+import lombok.Getter;
+
+public class NoteListViewModel
 {
-    public ObservableField<String> name;
-    public ObservableField<String> detail;
+    @Getter
+    private ObservableField<String> name;
+
+    @Getter
+    private ObservableField<String> detail;
 
     private Note note;
 
-    public ItemViewModel(Context context, Note note)
+    public NoteListViewModel(Context context, Note note)
     {
         this.note = note;
 
