@@ -9,15 +9,13 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Module
 public class AppModule
 {
     private Application application;
 
-    public AppModule(Application app) {
+    public AppModule(Application application) {
         this.application = application;
     }
 
@@ -38,6 +36,4 @@ public class AppModule
     {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
-
-
 }

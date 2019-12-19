@@ -5,15 +5,14 @@ import com.tld.takenotes.viewmodel.main.MainViewModel;
 
 import dagger.Module;
 import dagger.Provides;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Module
 public class MainModule
 {
     MainViewModel.MainListener listener;
 
-    public MainModule(MainViewModel.MainListener listener) {
+    public MainModule(MainViewModel.MainListener listener)
+    {
         this.listener = listener;
     }
 

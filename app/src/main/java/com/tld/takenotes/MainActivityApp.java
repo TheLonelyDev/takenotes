@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.tld.takenotes.inject.app.AppComponent;
 import com.tld.takenotes.inject.app.AppModule;
 import com.tld.takenotes.inject.app.DaggerAppComponent;
+import com.tld.takenotes.inject.main.DaggerMainComponent;
 
 import lombok.Getter;
 
