@@ -48,14 +48,8 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     @Override
     public void DeleteNote(DeleteCurrentNote deleteCurrentNote)
     {
-        try
-        {
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
-        }
-        catch (Exception e)
-        {
-            // We're in on two pane view, this is normal
-        }
+        //if (getActivity() != null)
+        //    getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
     }
 
     @Nullable
