@@ -1,5 +1,6 @@
 package com.tld.takenotes.viewmodel.note;
 
+import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 
@@ -68,13 +69,25 @@ public class NoteViewModel
         MainActivityApp.getBusComponent().getCreateNewNote().onNext(new CreateNewNote());
     }
 
-    public TextChanged onTextChanged(View view) {
+    public TextChanged onTextChanged() {
         return new TextChanged() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 //if(s.toString().trim().length() > 1)
                 MainActivityApp.getBusComponent().getNoteSearch().onNext(new NoteSearch(s.toString().trim()));
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
             }
         };
     }

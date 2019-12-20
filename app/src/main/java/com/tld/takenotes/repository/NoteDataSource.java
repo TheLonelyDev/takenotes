@@ -20,13 +20,13 @@ public class NoteDataSource implements NoteRepository
     }
 
     @Override
-    public void newNote(Note note) { noteDao.newNote(note);}
+    public void newNote(Note note) { noteDao.newNote(note); }
 
     @Override
-    public void updateNote(Note note) { noteDao.updateNote(note);}
+    public void updateNote(Note note) { noteDao.updateNote(note); }
 
     @Override
-    public void deleteNote(Note note) { noteDao.deleteNote(note);}
+    public void deleteNote(Note note) { noteDao.deleteNote(note); }
 
     @Override
     public LiveData<List<Note>> getAll()

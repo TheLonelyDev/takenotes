@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
@@ -58,8 +60,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
         noteRepository.newNote(note);
 
-        Search(new NoteSearch(""));
-
         MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 
@@ -72,7 +72,13 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void Search(NoteSearch noteSearch)
     {
-        OnLoaded((noteSearch.getKeyword().trim().isEmpty() ? noteRepository.getAll() : noteRepository.getAll()).getValue());
+        noteRepository.getAll().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(@Nullable List<Note> notes) {
+                OnLoaded(notes);
+            }
+        });
+       // OnLoaded((noteSearch.getKeyword().trim().isEmpty() ? noteRepository.getAll() : noteRepository.getAll()).getValue());
     }
 
     @Nullable
@@ -86,6 +92,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);
+
+        Search(new NoteSearch(""));
 
         return binding.getRoot();
     }

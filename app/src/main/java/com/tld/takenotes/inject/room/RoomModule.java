@@ -21,7 +21,7 @@ public class RoomModule {
 
     public RoomModule(Application application)
     {
-        demoDatabase = Room.databaseBuilder(application, DemoDatabase.class, "demo-db").build();
+        demoDatabase = Room.databaseBuilder(application, DemoDatabase.class, "demo-db").allowMainThreadQueries().build();
     }
 
     @Singleton
