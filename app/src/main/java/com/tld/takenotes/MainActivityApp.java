@@ -14,14 +14,12 @@ import lombok.Getter;
 public class MainActivityApp extends Application {
 
     @Getter
+    private static BusComponent busComponent;
+    @Getter
     private AppComponent appComponent;
 
-    @Getter
-    private static BusComponent busComponent;
-
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).roomModule(new RoomModule(this)).build();

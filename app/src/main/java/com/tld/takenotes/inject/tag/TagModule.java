@@ -7,19 +7,16 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class TagModule
-{
+public class TagModule {
     TagViewModel.TagListener listener;
 
-    public TagModule(TagViewModel.TagListener listener)
-    {
+    public TagModule(TagViewModel.TagListener listener) {
         this.listener = listener;
     }
 
     @Fragment
     @Provides
-    TagViewModel provideTagViewModel()
-    {
+    TagViewModel provideTagViewModel() {
         return new TagViewModel(listener);
     }
 }

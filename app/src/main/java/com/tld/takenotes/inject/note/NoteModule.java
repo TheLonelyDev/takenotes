@@ -8,23 +8,22 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class NoteModule
-{
+public class NoteModule {
     NoteViewModel.NoteListener listener;
 
-    public NoteModule(NoteViewModel.NoteListener listener)
-    {
+    public NoteModule(NoteViewModel.NoteListener listener) {
         this.listener = listener;
     }
 
     @Fragment
     @Provides
-    NoteViewModel provideNoteViewModel()
-    {
+    NoteViewModel provideNoteViewModel() {
         return new NoteViewModel(listener);
     }
 
     @Fragment
     @Provides
-    NoteAdapter provideNoteAdapter() { return new NoteAdapter(); }
+    NoteAdapter provideNoteAdapter() {
+        return new NoteAdapter();
+    }
 }

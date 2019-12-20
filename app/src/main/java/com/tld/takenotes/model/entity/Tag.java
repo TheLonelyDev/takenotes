@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class Tag
-{
-    @Getter @Setter
+public class Tag {
+    @Getter
+    @Setter
     private String name;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Color color;
 }

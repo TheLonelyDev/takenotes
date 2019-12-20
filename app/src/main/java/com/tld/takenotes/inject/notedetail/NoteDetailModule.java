@@ -7,8 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class NoteDetailModule
-{
+public class NoteDetailModule {
     NoteDetailViewModel.NoteDetailListener listener;
 
     public NoteDetailModule(NoteDetailViewModel.NoteDetailListener listener) {

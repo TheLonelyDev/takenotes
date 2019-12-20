@@ -19,8 +19,7 @@ import com.tld.takenotes.viewmodel.tag.TagViewModel;
 
 import javax.inject.Inject;
 
-public class TagFragment extends Fragment implements TagViewModel.TagListener
-{
+public class TagFragment extends Fragment implements TagViewModel.TagListener {
     FragmentTagBinding binding;
 
     @Inject

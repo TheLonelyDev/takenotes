@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class NoteSearch
-{
+public class NoteSearch {
     @Getter
     @Setter
     private String keyword;

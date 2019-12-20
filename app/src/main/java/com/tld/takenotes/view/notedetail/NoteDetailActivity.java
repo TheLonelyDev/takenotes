@@ -9,12 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tld.takenotes.R;
 import com.tld.takenotes.model.entity.Note;
+
 import org.parceler.Parcels;
 
-public class NoteDetailActivity extends AppCompatActivity
-{
-    public static Intent newIntent(Context context, Note note)
-    {
+public class NoteDetailActivity extends AppCompatActivity {
+    public static Intent newIntent(Context context, Note note) {
         Intent intent = new Intent(context, NoteDetailActivity.class);
         Bundle bundle = new Bundle();
 
@@ -26,8 +25,7 @@ public class NoteDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
 

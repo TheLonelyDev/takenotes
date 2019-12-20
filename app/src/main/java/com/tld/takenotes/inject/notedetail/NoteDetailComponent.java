@@ -8,7 +8,6 @@ import dagger.Component;
 
 @Fragment
 @Component(dependencies = AppComponent.class, modules = NoteDetailModule.class)
-public interface NoteDetailComponent
-{
+public interface NoteDetailComponent {
     void inject(NoteDetailFragment noteDetailFragment);
 }

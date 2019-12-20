@@ -11,26 +11,22 @@ import dagger.Provides;
 import io.reactivex.subjects.PublishSubject;
 
 @Module
-public class BusModule
-{
+public class BusModule {
     @Provides
     @Singleton
-    static PublishSubject<NoteClickEvent> provideOnNoteClicked()
-    {
+    static PublishSubject<NoteClickEvent> provideOnNoteClicked() {
         return PublishSubject.create();
     }
 
     @Provides
     @Singleton
-    static PublishSubject<CreateNewNote> provideCreateNewNote()
-    {
+    static PublishSubject<CreateNewNote> provideCreateNewNote() {
         return PublishSubject.create();
     }
 
     @Provides
     @Singleton
-    static PublishSubject<NoteSearch> provideNoteSearch()
-    {
+    static PublishSubject<NoteSearch> provideNoteSearch() {
         return PublishSubject.create();
     }
 }

@@ -7,8 +7,7 @@ import com.tld.takenotes.model.dao.NoteDao;
 import com.tld.takenotes.model.entity.Note;
 
 @Database(entities = {Note.class}, version = DemoDatabase.VERSION)
-public abstract class DemoDatabase extends RoomDatabase
-{
+public abstract class DemoDatabase extends RoomDatabase {
     static final int VERSION = 1;
 
     public abstract NoteDao getNoteDao();

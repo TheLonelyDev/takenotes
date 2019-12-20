@@ -1,6 +1,5 @@
 package com.tld.takenotes.view.notedetail;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
@@ -24,15 +22,13 @@ import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
-public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener
-{
+public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener {
     FragmentNoteDetailBinding binding;
 
     @Inject
     NoteDetailViewModel viewModel;
 
-    public static NoteDetailFragment newFragment(Note note)
-    {
+    public static NoteDetailFragment newFragment(Note note) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle arguments = new Bundle();
 
@@ -46,7 +42,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // Note note = Parcels.unwrap(getActivity().getIntent().getExtras().getParcelable("key_note"));
+        // Note note = Parcels.unwrap(getActivity().getIntent().getExtras().getParcelable("key_note"));
         //Activity activity = this.getActivity();
 
 

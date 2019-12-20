@@ -13,11 +13,12 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {AppModule.class, RoomModule.class})
-public interface AppComponent
-{
+public interface AppComponent {
     SharedPreferences sharedPreferences();
 
     NoteDao noteDao();
+
     DemoDatabase demoDatabase();
+
     NoteRepository noteRepository();
 }

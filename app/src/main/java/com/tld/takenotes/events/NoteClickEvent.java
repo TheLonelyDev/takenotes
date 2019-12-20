@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class NoteClickEvent
-{
-    @Getter @Setter
+public class NoteClickEvent {
+    @Getter
+    @Setter
     private Note note;
 }

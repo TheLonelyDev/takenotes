@@ -17,22 +17,15 @@ import com.tld.takenotes.view.note.NoteFragment;
 import com.tld.takenotes.view.notedetail.NoteDetailActivity;
 import com.tld.takenotes.view.notedetail.NoteDetailFragment;
 import com.tld.takenotes.viewmodel.main.MainViewModel;
-import com.tld.takenotes.events.NoteClickEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainViewModel.MainListener
-{
-    private ActivityMainBinding binding;
-
+public class MainActivity extends AppCompatActivity implements MainViewModel.MainListener {
     @Inject
     protected MainViewModel viewModel;
+    private ActivityMainBinding binding;
 
-    public static Intent newIntent(Context context)
-    {
+    public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
 
@@ -42,20 +35,17 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     }
 
     @Override
-    public void onNoteClicked(Note note)
-    {
+    public void onNoteClicked(Note note) {
         if (!viewModel.isTwoPane())
             startActivity(NoteDetailActivity.newIntent(this, note));
-        else
-            if (!isFinishing())
-                getSupportFragmentManager().beginTransaction()
-                .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
-                .commit();
+        else if (!isFinishing())
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
+                    .commit();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -78,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         viewModel.onDestroy();
     }

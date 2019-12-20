@@ -13,8 +13,7 @@ import com.tld.takenotes.model.entity.Note;
 
 import lombok.Getter;
 
-public class NoteListViewModel
-{
+public class NoteListViewModel {
     @Getter
     private ObservableField<String> name;
 
@@ -28,8 +27,7 @@ public class NoteListViewModel
 
     private RxBus bus;
 
-    public NoteListViewModel(Context context, Note note)
-    {
+    public NoteListViewModel(Context context, Note note) {
         this.note = note;
         this.bus = bus;
 
@@ -38,8 +36,7 @@ public class NoteListViewModel
         //this.tags = new ObservableField<>(context.getString(R.string.detail, note.getTags()));
     }
 
-    public void onNoteClicked(View view)
-    {
+    public void onNoteClicked(View view) {
         MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 }

@@ -19,29 +19,25 @@ public class RoomModule {
 
     private DemoDatabase demoDatabase;
 
-    public RoomModule(Application application)
-    {
+    public RoomModule(Application application) {
         demoDatabase = Room.databaseBuilder(application, DemoDatabase.class, "demo-db").allowMainThreadQueries().build();
     }
 
     @Singleton
     @Provides
-    DemoDatabase providesRoomDatabase()
-    {
+    DemoDatabase providesRoomDatabase() {
         return demoDatabase;
     }
 
     @Singleton
     @Provides
-    NoteDao providesProductDao(DemoDatabase demoDatabase)
-    {
+    NoteDao providesProductDao(DemoDatabase demoDatabase) {
         return demoDatabase.getNoteDao();
     }
 
     @Singleton
     @Provides
-    NoteRepository productRepository(NoteDao productDao)
-    {
+    NoteRepository productRepository(NoteDao productDao) {
         return new NoteDataSource(productDao);
     }
 

@@ -11,8 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AppModule
-{
+public class AppModule {
     private Application application;
 
     public AppModule(Application application) {
@@ -21,19 +20,19 @@ public class AppModule
 
     @Provides
     @Singleton
-    Application provideApplication()
-    {
+    Application provideApplication() {
         return this.application;
     }
 
     @Provides
     @Singleton
-    Context provideContext() { return this.application.getApplicationContext(); }
+    Context provideContext() {
+        return this.application.getApplicationContext();
+    }
 
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences(Application application)
-    {
+    SharedPreferences provideSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
 }

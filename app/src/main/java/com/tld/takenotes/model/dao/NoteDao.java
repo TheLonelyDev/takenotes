@@ -13,8 +13,7 @@ import com.tld.takenotes.model.entity.Note;
 import java.util.List;
 
 @Dao
-public interface NoteDao
-{
+public interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void newNote(Note note);
 

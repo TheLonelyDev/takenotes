@@ -8,21 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tld.takenotes.databinding.NoteListBinding;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteListViewModel;
-import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder>
-{
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
     private List<Note> notes;
 
-    public NoteAdapter()
-    {
-        notes = new ArrayList<Note>(){};
+    public NoteAdapter() {
+        notes = new ArrayList<Note>() {
+        };
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 
     public void setNotes(List<Note> notes) {
@@ -30,19 +29,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
-    public List<Note> getNotes(){
-        return notes;
-    }
-
     @Override
-    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return NoteViewHolder.create(LayoutInflater.from(parent.getContext()), parent);
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, int position)
-    {
+    public void onBindViewHolder(NoteViewHolder holder, int position) {
         holder.bind(new NoteListViewModel(holder.itemView.getContext(), notes.get(position)));
     }
 
@@ -52,24 +45,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     }
 
 
-    static class NoteViewHolder extends RecyclerView.ViewHolder
-    {
+    static class NoteViewHolder extends RecyclerView.ViewHolder {
         NoteListBinding binding;
 
-        static NoteAdapter.NoteViewHolder create(LayoutInflater inflater, ViewGroup parent)
-        {
-            NoteListBinding binding = NoteListBinding.inflate(inflater, parent, false);
-            return new NoteAdapter.NoteViewHolder(binding);
-        }
-
-        public NoteViewHolder(NoteListBinding binding)
-        {
+        public NoteViewHolder(NoteListBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(NoteListViewModel viewModel)
-        {
+        static NoteAdapter.NoteViewHolder create(LayoutInflater inflater, ViewGroup parent) {
+            NoteListBinding binding = NoteListBinding.inflate(inflater, parent, false);
+            return new NoteAdapter.NoteViewHolder(binding);
+        }
+
+        public void bind(NoteListViewModel viewModel) {
             binding.setViewModel(viewModel);
             binding.executePendingBindings();
         }

@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class TagClickEvent
-{
+public class TagClickEvent {
     @Getter
     @Setter
     private Note note;

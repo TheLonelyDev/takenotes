@@ -7,19 +7,16 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MainModule
-{
+public class MainModule {
     MainViewModel.MainListener listener;
 
-    public MainModule(MainViewModel.MainListener listener)
-    {
+    public MainModule(MainViewModel.MainListener listener) {
         this.listener = listener;
     }
 
     @Provides
     @Activity
-    MainViewModel provideMainViewModel()
-    {
+    MainViewModel provideMainViewModel() {
         return new MainViewModel(listener);
     }
 }

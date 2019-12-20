@@ -11,8 +11,7 @@ import io.reactivex.subjects.PublishSubject;
 
 @Component(modules = BusModule.class)
 @Singleton
-public interface BusComponent
-{
+public interface BusComponent {
     PublishSubject<NoteClickEvent> getOnNoteClicked();
 
     PublishSubject<CreateNewNote> getCreateNewNote();

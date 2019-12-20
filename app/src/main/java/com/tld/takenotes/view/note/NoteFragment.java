@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,13 +22,11 @@ import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.repository.NoteRepository;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
-{
+public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
     FragmentNoteBinding binding;
 
     @Inject
@@ -41,8 +38,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Inject
     NoteRepository noteRepository;
 
-    public static NoteFragment newFragment()
-    {
+    public static NoteFragment newFragment() {
         NoteFragment fragment = new NoteFragment();
         Bundle arguments = new Bundle();
 
@@ -52,8 +48,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     }
 
     @Override
-    public void CreateNewNote()
-    {
+    public void CreateNewNote() {
         Note note = new Note();
         note.setName("New note");
         note.setDetail("");
@@ -64,27 +59,24 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     }
 
     @Override
-    public void OnLoaded(List<Note> notes)
-    {
+    public void OnLoaded(List<Note> notes) {
         adapter.setNotes(notes);
     }
 
     @Override
-    public void Search(NoteSearch noteSearch)
-    {
+    public void Search(NoteSearch noteSearch) {
         noteRepository.getAll().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
                 OnLoaded(notes);
             }
         });
-       // OnLoaded((noteSearch.getKeyword().trim().isEmpty() ? noteRepository.getAll() : noteRepository.getAll()).getValue());
+        // OnLoaded((noteSearch.getKeyword().trim().isEmpty() ? noteRepository.getAll() : noteRepository.getAll()).getValue());
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
         // Inject
@@ -99,8 +91,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         viewModel.onDestroy();
     }
