@@ -63,11 +63,6 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         // tldr; injection
         DaggerMainComponent.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
 
-        /*DaggerMainComponent.builder()
-                .appComponent(((MainActivityApp) getApplication()).getAppComponent())
-                .mainModule(new MainModule(this))
-                .build().inject(this);*/
-
         // Init views
         // Do two pane detection by finding a specific view; grabbed from the MasterDetailFlow demo
         viewModel.setTwoPane(false);
@@ -79,7 +74,12 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.containerMaster, NoteFragment.newFragment()).commit();
 
-
         binding.setViewModel(viewModel);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //viewModel.onDestroy();
     }
 }

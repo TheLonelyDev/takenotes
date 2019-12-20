@@ -50,6 +50,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);
 
+
+
         //if (savedInstanceState != null)
 
         return binding.getRoot();
