@@ -18,22 +18,11 @@ import lombok.Setter;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder>
 {
-    @Getter @Setter
     private List<Note> notes;
 
     public NoteAdapter()
     {
-        Note n1 = new Note();
-        n1.setName("Brainstorming");
-        n1.setDetail("TODO, IDEAS");
-
-        Note n2 = new Note();
-        n2.setName("Shoppinglist");
-        n2.setDetail("SHOPPING");
-
         notes = new ArrayList<Note>(){};
-        notes.add(n1);
-        notes.add(n2);
     }
 
     public void setNotes(List<Note> notes) {

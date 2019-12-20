@@ -2,6 +2,7 @@ package com.tld.takenotes.inject.bus;
 
 import com.tld.takenotes.events.CreateNewNote;
 import com.tld.takenotes.events.NoteClickEvent;
+import com.tld.takenotes.events.NoteSearch;
 
 import javax.inject.Singleton;
 
@@ -22,6 +23,13 @@ public class BusModule
     @Provides
     @Singleton
     static PublishSubject<CreateNewNote> provideCreateNewNote()
+    {
+        return PublishSubject.create();
+    }
+
+    @Provides
+    @Singleton
+    static PublishSubject<NoteSearch> provideNoteSearch()
     {
         return PublishSubject.create();
     }

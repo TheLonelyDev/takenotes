@@ -7,6 +7,7 @@ import com.tld.takenotes.inject.app.AppModule;
 import com.tld.takenotes.inject.app.DaggerAppComponent;
 import com.tld.takenotes.inject.bus.BusComponent;
 import com.tld.takenotes.inject.bus.DaggerBusComponent;
+import com.tld.takenotes.inject.room.RoomModule;
 
 import lombok.Getter;
 
@@ -23,7 +24,7 @@ public class MainActivityApp extends Application {
     {
         super.onCreate();
 
-        this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).roomModule(new RoomModule(this)).build();
         busComponent = DaggerBusComponent.create();
     }
 }
