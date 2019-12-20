@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class NoteClickEvent
+public class SaveCurrentNote
 {
     @Setter
     @Getter

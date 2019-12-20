@@ -1,9 +1,11 @@
 package com.tld.takenotes.view.note;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +16,10 @@ import androidx.lifecycle.Observer;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
+import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.events.NoteSearch;
+import com.tld.takenotes.events.SaveCurrentNote;
 import com.tld.takenotes.inject.note.DaggerNoteComponent;
 import com.tld.takenotes.inject.note.NoteModule;
 import com.tld.takenotes.model.entity.Note;
@@ -53,7 +57,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         note.setName("New note");
         note.setDetail("");
 
-        noteRepository.newNote(note);
+        note.setId((int) noteRepository.newNote(note));
 
         MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
@@ -71,7 +75,21 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
                 OnLoaded(notes);
             }
         });
-        // OnLoaded((noteSearch.getKeyword().trim().isEmpty() ? noteRepository.getAll() : noteRepository.getAll()).getValue());
+    }
+
+    @Override
+    public void SaveNote(SaveCurrentNote saveCurrentNote)
+    {
+        noteRepository.updateNote(saveCurrentNote.getNote());
+    }
+
+    @Override
+    public void DeleteNote(DeleteCurrentNote deleteCurrentNote)
+    {
+        noteRepository.deleteNote(deleteCurrentNote.getNote());
+
+        Search(new NoteSearch(""));
+        getActivity().finishActivity(1);
     }
 
     @Nullable

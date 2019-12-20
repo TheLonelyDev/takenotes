@@ -41,11 +41,6 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Note note = Parcels.unwrap(getActivity().getIntent().getExtras().getParcelable("key_note"));
-        //Activity activity = this.getActivity();
-
-
     }
 
     @Nullable
@@ -57,7 +52,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         DaggerNoteDetailComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        viewModel.setNote((Note) Parcels.unwrap(getArguments().getParcelable("key_note")));
+        viewModel.note.setValue((Note) Parcels.unwrap(getArguments().getParcelable("key_note")));
         return binding.getRoot();
     }
 }

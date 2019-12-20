@@ -1,5 +1,8 @@
 package com.tld.takenotes.model.entity;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,9 +10,10 @@ import org.parceler.Parcel;
 
 @Entity
 @Parcel(
-        value = Parcel.Serialization.BEAN, // <-- requires getters/setters if set
+        value = Parcel.Serialization.BEAN,
         analyze = {Note.class})
-public class Note {
+public class Note extends BaseObservable  {
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     public int id;
     public String name;
@@ -20,6 +24,15 @@ public class Note {
     public Note() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Bindable
     public String getName() {
         return name;
     }
@@ -28,6 +41,7 @@ public class Note {
         this.name = name;
     }
 
+    @Bindable
     public String getDetail() {
         return detail;
     }

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void newNote(Note note);
+    long newNote(Note note);
 
     @Update
     void updateNote(Note note);

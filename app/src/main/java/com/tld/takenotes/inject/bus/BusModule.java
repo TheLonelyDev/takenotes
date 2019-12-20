@@ -1,8 +1,10 @@
 package com.tld.takenotes.inject.bus;
 
 import com.tld.takenotes.events.CreateNewNote;
+import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.events.NoteSearch;
+import com.tld.takenotes.events.SaveCurrentNote;
 
 import javax.inject.Singleton;
 
@@ -29,4 +31,14 @@ public class BusModule {
     static PublishSubject<NoteSearch> provideNoteSearch() {
         return PublishSubject.create();
     }
+
+    @Provides
+    @Singleton
+    static PublishSubject<DeleteCurrentNote> provideDeleteCurrentNote() {
+        return PublishSubject.create();
+    }
+
+    @Provides
+    @Singleton
+    static PublishSubject<SaveCurrentNote> provideSaveCurrentNote() { return PublishSubject.create(); }
 }

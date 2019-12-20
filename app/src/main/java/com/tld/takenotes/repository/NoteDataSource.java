@@ -18,8 +18,8 @@ public class NoteDataSource implements NoteRepository {
     }
 
     @Override
-    public void newNote(Note note) {
-        noteDao.newNote(note);
+    public long newNote(Note note) {
+        return noteDao.newNote(note);
     }
 
     @Override

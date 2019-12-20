@@ -3,9 +3,13 @@ package com.tld.takenotes.viewmodel.note;
 import android.text.Editable;
 import android.view.View;
 
+import androidx.room.Delete;
+
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.events.CreateNewNote;
+import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteSearch;
+import com.tld.takenotes.events.SaveCurrentNote;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.util.TextChanged;
 
@@ -39,6 +43,24 @@ public class NoteViewModel {
                 }
             }
         }));
+
+        disposable.add(MainActivityApp.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                if (o instanceof DeleteCurrentNote) {
+                    listener.DeleteNote((DeleteCurrentNote) o);
+                }
+            }
+        }));
+
+        disposable.add(MainActivityApp.getBusComponent().getSaveCurrentNote().subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                if (o instanceof SaveCurrentNote) {
+                    listener.SaveNote((SaveCurrentNote) o);
+                }
+            }
+        }));
     }
 
     public void onDestroy() {
@@ -61,6 +83,10 @@ public class NoteViewModel {
 
     public interface NoteListener {
         void CreateNewNote();
+
+        void DeleteNote(DeleteCurrentNote deleteCurrentNote);
+
+        void SaveNote(SaveCurrentNote saveCurrentNote);
 
         void OnLoaded(List<Note> notes);
 

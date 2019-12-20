@@ -69,7 +69,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="true"
             android:scrollbars="horizontal"
-            android:text="@{viewModel.note.name}"
+            android:text="@={viewModel.note.name}"
             app:layout_constraintBottom_toBottomOf="@+id/note_banner"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_bottom_shader"
             app:layout_constraintStart_toStartOf="@+id/note_banner_bottom_shader"
@@ -84,7 +84,7 @@
             android:gravity="top|left"
             android:padding="16dp"
             android:textIsSelectable="true"
-            android:text="@{viewModel.note.detail}"
+            android:text="@={viewModel.note.detail}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_top_shader"
             app:layout_constraintHorizontal_bias="0.0"
@@ -110,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:layout_margin="@dimen/fab_margin"
+                android:onClick="@{viewModel::DeleteNote}"
                 fab:fab_label="Delete"
                 fab:fab_size="mini" />
 
@@ -119,16 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:layout_margin="@dimen/fab_margin"
-                fab:fab_label="Discard changes"
-                fab:fab_size="mini" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_margin="@dimen/fab_margin"
-                fab:fab_label="Convert to local/cloud"
+                android:onClick="@{viewModel::SaveNote}"
+                fab:fab_label="Save changes"
                 fab:fab_size="mini" />
         </com.github.clans.fab.FloatingActionMenu>
 

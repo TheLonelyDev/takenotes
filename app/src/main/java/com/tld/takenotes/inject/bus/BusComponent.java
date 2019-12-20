@@ -1,8 +1,10 @@
 package com.tld.takenotes.inject.bus;
 
 import com.tld.takenotes.events.CreateNewNote;
+import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.events.NoteSearch;
+import com.tld.takenotes.events.SaveCurrentNote;
 
 import javax.inject.Singleton;
 
@@ -17,4 +19,8 @@ public interface BusComponent {
     PublishSubject<CreateNewNote> getCreateNewNote();
 
     PublishSubject<NoteSearch> getNoteSearch();
+
+    PublishSubject<DeleteCurrentNote> getDeleteCurrentNote();
+
+    PublishSubject<SaveCurrentNote> getSaveCurrentNote();
 }

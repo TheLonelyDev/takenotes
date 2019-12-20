@@ -7,7 +7,7 @@ import com.tld.takenotes.model.entity.Note;
 import java.util.List;
 
 public interface NoteRepository {
-    void newNote(Note note);
+    long newNote(Note note);
 
     void updateNote(Note note);
 

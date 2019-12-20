@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     @Inject
     protected MainViewModel viewModel;
     private ActivityMainBinding binding;
+    private Note currentNote;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -34,10 +35,11 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         return intent;
     }
 
+
     @Override
     public void onNoteClicked(Note note) {
         if (!viewModel.isTwoPane())
-            startActivity(NoteDetailActivity.newIntent(this, note));
+            startActivityForResult(NoteDetailActivity.newIntent(this, note), 1);
         else if (!isFinishing())
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
