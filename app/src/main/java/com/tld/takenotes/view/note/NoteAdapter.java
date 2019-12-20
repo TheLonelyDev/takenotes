@@ -36,6 +36,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notes.add(n2);
     }
 
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+        notifyDataSetChanged();
+    }
+
+    public List<Note> getNotes(){
+        return notes;
+    }
+
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {

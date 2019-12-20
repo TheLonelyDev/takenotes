@@ -13,9 +13,14 @@ import androidx.fragment.app.Fragment;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
+import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.inject.note.DaggerNoteComponent;
 import com.tld.takenotes.inject.note.NoteModule;
+import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,6 +44,20 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         return fragment;
     }
 
+    @Override
+    public void CreateNewNote()
+    {
+        Note note = new Note();
+        note.setName("New note");
+
+        List<Note> notes = new ArrayList<Note>();
+        notes.add(note);
+
+        adapter.setNotes(notes);
+
+        MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,10 +68,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);
-
-
-
-        //if (savedInstanceState != null)
 
         return binding.getRoot();
     }

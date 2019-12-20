@@ -1,6 +1,5 @@
 package com.tld.takenotes.view.main;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +10,17 @@ import androidx.databinding.DataBindingUtil;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.ActivityMainBinding;
-import com.tld.takenotes.inject.app.DaggerAppComponent;
 import com.tld.takenotes.inject.main.DaggerMainComponent;
-import com.tld.takenotes.inject.main.MainComponent;
 import com.tld.takenotes.inject.main.MainModule;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.view.note.NoteFragment;
 import com.tld.takenotes.view.notedetail.NoteDetailActivity;
 import com.tld.takenotes.view.notedetail.NoteDetailFragment;
 import com.tld.takenotes.viewmodel.main.MainViewModel;
-import com.tld.takenotes.viewmodel.note.NoteViewModel;
+import com.tld.takenotes.events.NoteClickEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         else
             if (!isFinishing())
                 getSupportFragmentManager().beginTransaction()
-                .replace(R.id.containerMaster, NoteDetailFragment.newFragment(note))
+                .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
                 .commit();
     }
 
@@ -65,20 +65,21 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
 
         // Init views
         // Do two pane detection by finding a specific view; grabbed from the MasterDetailFlow demo
-        viewModel.setTwoPane(false);
+        viewModel.setTwoPane(findViewById(R.id.detail_container) != null);
 
         // Set the SavedInstance
         // We use this so to switch between the two view types (fragment will be added to the container automatically)
         // http://developer.android.com/guide/components/fragments.html
 
         if (savedInstanceState == null)
-            getSupportFragmentManager().beginTransaction().add(R.id.containerMaster, NoteFragment.newFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.main_container, NoteFragment.newFragment()).commitAllowingStateLoss();
 
         binding.setViewModel(viewModel);
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
         super.onDestroy();
         viewModel.onDestroy();
     }

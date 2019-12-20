@@ -61,5 +61,5 @@ dependencies {
     // https://mvnrepository.com/artifact/com.hwangjr.rxbus/rxbus
     implementation group: 'com.hwangjr.rxbus', name: 'rxbus', version: '2.0.1'
 
-
+    implementation 'com.github.clans:fab:1.6.4'
 }

@@ -35,6 +35,6 @@ public class NoteDetailActivity extends AppCompatActivity
         setTitle(note.getName());
 
         if (savedInstanceState == null)
-            getSupportFragmentManager().beginTransaction().add(R.id.containerMaster, NoteDetailFragment.newFragment(note)).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, NoteDetailFragment.newFragment(note)).commitAllowingStateLoss();
     }
 }

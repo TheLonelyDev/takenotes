@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:ignore="MergeRootFrame">
+
+        <ImageView
+            android:id="@+id/note_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"
+            app:layout_collapseMode="parallax"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/note_banner_top_shader"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:background="@drawable/scrim_top"
+            app:layout_collapseMode="pin"
+            app:layout_constraintBottom_toTopOf="@+id/note_banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <View
+            android:id="@+id/note_banner_bottom_shader"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:background="@drawable/scrim_bottom"
+            app:layout_constraintBottom_toBottomOf="@+id/note_banner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/note_banner_top_shader"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/note_title"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:gravity="top|left"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:background="@android:color/transparent"
+            android:textColor="#fefefe"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textIsSelectable="true"
+            android:scrollbars="horizontal"
+            android:text="@{viewModel.note.name}"
+            app:layout_constraintBottom_toBottomOf="@+id/note_banner"
+            app:layout_constraintEnd_toEndOf="@+id/note_banner_bottom_shader"
+            app:layout_constraintStart_toStartOf="@+id/note_banner_bottom_shader"
+            app:layout_constraintTop_toBottomOf="@+id/note_banner_top_shader" />
+
+        <EditText
+            android:id="@+id/note_detail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="64dp"
+            android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:padding="16dp"
+            android:textIsSelectable="true"
+            android:text="@{viewModel.note.detail}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/note_banner_top_shader"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/note_banner_top_shader"
+            app:layout_constraintTop_toBottomOf="@+id/note_banner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@+id/item_detail_container"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            fab:menu_openDirection="up">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_margin="@dimen/fab_margin"
+                fab:fab_label="Delete"
+                fab:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_margin="@dimen/fab_margin"
+                fab:fab_label="Discard changes"
+                fab:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/menu_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_margin="@dimen/fab_margin"
+                fab:fab_label="Convert to local/cloud"
+                fab:fab_size="mini" />
+        </com.github.clans.fab.FloatingActionMenu>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="128dp"
+            android:layout_marginRight="128dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/note_detail">
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

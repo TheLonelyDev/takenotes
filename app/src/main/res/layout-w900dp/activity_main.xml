@@ -23,11 +23,25 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/main_container"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/app_bar"/>
+            android:layout_below="@+id/app_bar"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/main_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <FrameLayout
+                android:id="@+id/detail_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 </layout>
