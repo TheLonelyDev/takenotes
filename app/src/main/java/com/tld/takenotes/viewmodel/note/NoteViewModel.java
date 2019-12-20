@@ -56,16 +56,6 @@ public class NoteViewModel {
                 //if(s.toString().trim().length() > 1)
                 MainActivityApp.getBusComponent().getNoteSearch().onNext(new NoteSearch(s.toString().trim()));
             }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
         };
     }
 

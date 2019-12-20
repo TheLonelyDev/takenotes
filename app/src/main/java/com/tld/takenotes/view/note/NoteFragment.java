@@ -65,7 +65,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
     @Override
     public void Search(NoteSearch noteSearch) {
-        noteRepository.getAll().observe(this, new Observer<List<Note>>() {
+        noteRepository.searchNotes(noteSearch.getKeyword()).observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notes) {
                 OnLoaded(notes);

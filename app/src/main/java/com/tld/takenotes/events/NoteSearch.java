@@ -6,7 +6,11 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public class NoteSearch {
-    @Getter
     @Setter
     private String keyword;
+
+    public String getKeyword()
+    {
+        return String.format("%%%s%%", this.keyword);
+    }
 }
