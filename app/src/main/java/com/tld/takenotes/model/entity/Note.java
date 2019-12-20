@@ -11,8 +11,8 @@ import lombok.Setter;
 public class Note
 {
     @Getter @Setter
-    private String name;
+    public String name;
 
     @Getter @Setter
-    private String detail;
+    public String detail;
 }

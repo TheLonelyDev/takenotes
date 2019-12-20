@@ -37,8 +37,6 @@ public class NoteListViewModel
         this.note = note;
         this.bus = bus;
 
-
-
         this.name = new ObservableField<>(context.getString(R.string.name, note.getName()));
         this.detail = new ObservableField<>(context.getString(R.string.detail, note.getDetail()));
         //this.tags = new ObservableField<>(context.getString(R.string.detail, note.getTags()));

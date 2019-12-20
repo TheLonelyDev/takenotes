@@ -80,6 +80,6 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //viewModel.onDestroy();
+        viewModel.onDestroy();
     }
 }

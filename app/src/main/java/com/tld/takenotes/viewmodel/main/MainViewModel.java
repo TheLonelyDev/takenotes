@@ -43,24 +43,21 @@ public class MainViewModel
         this.bus = bus;
 
         disposable = new CompositeDisposable();
-
-        MainActivityApp.getBusComponent().getOnNoteClicked().subscribe(new Consumer<Object>()
+        disposable.add(MainActivityApp.getBusComponent().getOnNoteClicked().subscribe(new Consumer<Object>()
         {
             @Override
             public void accept(Object o) throws Exception
             {
                 if (o instanceof NoteClickEvent)
                 {
-                    NoteClickEvent event = (NoteClickEvent) o;
-                    Log.d("STATE", event.getNote().getName());
+                    listener.onNoteClicked(((NoteClickEvent) o).getNote());
                 }
             }
-        });
+        }));
     }
 
-    protected void onDestroy()
+    public void onDestroy()
     {
         disposable.clear();
     }
-
 }
