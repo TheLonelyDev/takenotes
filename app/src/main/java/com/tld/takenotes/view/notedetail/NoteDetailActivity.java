@@ -32,8 +32,9 @@ public class NoteDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_note_detail);
 
         Note note = Parcels.unwrap(getIntent().getExtras().getParcelable("key_note"));
+        setTitle(note.getName());
 
-        //if (savedInstanceState == null)
-       //     getSupportFragmentManager().beginTransaction().add(R.id.containerDetail, NoteDetailFragment.newFragment(note)).commit();
+        if (savedInstanceState == null)
+            getSupportFragmentManager().beginTransaction().add(R.id.containerMaster, NoteDetailFragment.newFragment(note)).commit();
     }
 }

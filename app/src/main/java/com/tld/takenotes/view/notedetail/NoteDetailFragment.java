@@ -43,7 +43,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail, container, false);
 
         // Inject
         DaggerNoteDetailComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);

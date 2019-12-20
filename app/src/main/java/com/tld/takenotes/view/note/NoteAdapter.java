@@ -23,9 +23,17 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     public NoteAdapter()
     {
+        Note n1 = new Note();
+        n1.setName("Brainstorming");
+        n1.setDetail("TODO, IDEAS");
+
+        Note n2 = new Note();
+        n2.setName("Shoppinglist");
+        n2.setDetail("SHOPPING");
+
         notes = new ArrayList<Note>(){};
-        notes.add(new Note("Brainstorming", "TODO, IDEAS"));
-        notes.add(new Note("Shoppinglist", "SHOPPING"));
+        notes.add(n1);
+        notes.add(n2);
     }
 
     @Override

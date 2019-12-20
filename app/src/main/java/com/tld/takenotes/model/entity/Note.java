@@ -6,13 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Parcel
-@AllArgsConstructor
+@Parcel(
+        value = Parcel.Serialization.BEAN, // <-- requires getters/setters if set
+        analyze = { Note.class })
 public class Note
 {
-    @Getter @Setter
-    public String name;
+    public Note() {}
 
-    @Getter @Setter
-    public String detail;
+    String name;
+
+    String detail;
+
+    public String getName() { return name; }
+    public String getDetail() { return detail; }
+
+    public void setName(String name) { this.name = name; }
+    public void setDetail(String detail) { this.detail = detail; }
 }
