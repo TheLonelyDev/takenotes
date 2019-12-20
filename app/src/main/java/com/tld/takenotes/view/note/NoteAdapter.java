@@ -10,6 +10,7 @@ import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteListViewModel;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -19,6 +20,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 {
     @Getter @Setter
     private List<Note> notes;
+
+    public NoteAdapter()
+    {
+        notes = new ArrayList<Note>(){};
+        notes.add(new Note("Brainstorming", "TODO, IDEAS"));
+        notes.add(new Note("Shoppinglist", "SHOPPING"));
+    }
 
     @Override
     public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

@@ -1,6 +1,7 @@
 package com.tld.takenotes.inject.note;
 
 import com.tld.takenotes.inject.Fragment;
+import com.tld.takenotes.view.note.NoteAdapter;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import dagger.Module;
@@ -22,4 +23,8 @@ public class NoteModule
     {
         return new NoteViewModel(listener);
     }
+
+    @Fragment
+    @Provides
+    NoteAdapter provideNoteAdapter() { return new NoteAdapter(); }
 }

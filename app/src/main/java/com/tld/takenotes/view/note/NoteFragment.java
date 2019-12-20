@@ -19,11 +19,15 @@ import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import javax.inject.Inject;
 
-public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
+public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
+{
     FragmentNoteBinding binding;
 
     @Inject
     NoteViewModel viewModel;
+
+    @Inject
+    NoteAdapter adapter;
 
     public static NoteFragment newFragment()
     {
@@ -41,13 +45,12 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
         // Inject
-        DaggerNoteComponent.builder().appComponent(((MainActivityApp) getActivity().getApplication()).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
+        DaggerNoteComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-
+        binding.recyclerView.setAdapter(adapter);
 
         //if (savedInstanceState != null)
-
 
         return binding.getRoot();
     }

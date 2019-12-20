@@ -12,9 +12,13 @@ public class MainViewModel
     @Getter @Setter
     private boolean isTwoPane = false;
     private MainListener listener;
+    private RxBus bus;
 
-    public MainViewModel(MainListener listener)
+    public MainViewModel(MainListener listener, RxBus bus)
     {
         this.listener = listener;
+        this.bus = bus;
     }
+
+    
 }

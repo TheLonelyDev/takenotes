@@ -43,4 +43,19 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation 'com.android.support:recyclerview-v7:23.0.0'
+
+    // https://mvnrepository.com/artifact/org.parceler/parceler-api
+    implementation group: 'org.parceler', name: 'parceler-api', version: '1.1.12'
+
+
 }
