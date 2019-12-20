@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         else if (!isFinishing())
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
-                    .commit();
+                    .commitAllowingStateLoss();
     }
 
     @Override
