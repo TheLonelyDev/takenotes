@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.tld.takenotes.model.dao.NoteDao;
-import com.tld.takenotes.repository.DemoDatabase;
+import com.tld.takenotes.repository.RoomDatabase;
 import com.tld.takenotes.repository.NoteDataSource;
 import com.tld.takenotes.repository.NoteRepository;
 
@@ -17,22 +17,22 @@ import dagger.Provides;
 @Module
 public class RoomModule {
 
-    private DemoDatabase demoDatabase;
+    private RoomDatabase roomDatabase;
 
     public RoomModule(Application application) {
-        demoDatabase = Room.databaseBuilder(application, DemoDatabase.class, "demo-db").allowMainThreadQueries().build();
+        roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "demo-db").allowMainThreadQueries().build();
     }
 
     @Singleton
     @Provides
-    DemoDatabase providesRoomDatabase() {
-        return demoDatabase;
+    RoomDatabase providesRoomDatabase() {
+        return roomDatabase;
     }
 
     @Singleton
     @Provides
-    NoteDao providesProductDao(DemoDatabase demoDatabase) {
-        return demoDatabase.getNoteDao();
+    NoteDao providesProductDao(RoomDatabase roomDatabase) {
+        return roomDatabase.getNoteDao();
     }
 
     @Singleton

@@ -22,6 +22,9 @@ android {
         }
     }
 
+    configurations.all {
+        resolutionStrategy.force 'com.google.android.material:material:1.0.0'
+    }
 }
 
 dependencies {
@@ -54,8 +57,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    implementation 'com.android.support:recyclerview-v7:23.0.0'
-
     // https://mvnrepository.com/artifact/org.parceler/parceler-api
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
@@ -66,4 +67,5 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'androidx.room:room-runtime:2.2.3'
     annotationProcessor 'androidx.room:room-compiler:2.2.3'
+
 }

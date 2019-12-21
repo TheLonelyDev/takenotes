@@ -1,8 +1,13 @@
 package com.tld.takenotes.view.main;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -67,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
             getSupportFragmentManager().beginTransaction().add(R.id.main_container, NoteFragment.newFragment()).commitAllowingStateLoss();
 
         binding.setViewModel(viewModel);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override

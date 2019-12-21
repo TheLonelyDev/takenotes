@@ -1,5 +1,6 @@
 package com.tld.takenotes.viewmodel.notedetail;
 
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.EditText;
 
@@ -10,6 +11,8 @@ import com.tld.takenotes.events.CreateNewNote;
 import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.SaveCurrentNote;
 import com.tld.takenotes.model.entity.Note;
+
+import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -44,6 +47,11 @@ public class NoteDetailViewModel {
     }
 
     public void SaveNote(View view)
+    {
+        MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
+    }
+
+    public void TTS(View view)
     {
         MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
     }

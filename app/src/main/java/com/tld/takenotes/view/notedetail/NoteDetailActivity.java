@@ -3,12 +3,16 @@ package com.tld.takenotes.view.notedetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.tld.takenotes.R;
 import com.tld.takenotes.model.entity.Note;
+import com.tld.takenotes.view.main.MainActivity;
 
 import org.parceler.Parcels;
 
@@ -34,5 +38,20 @@ public class NoteDetailActivity extends AppCompatActivity {
 
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, NoteDetailFragment.newFragment(note)).commitAllowingStateLoss();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
