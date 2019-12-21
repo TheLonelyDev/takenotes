@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.tld.takenotes.viewmodel.note.NoteViewModel" />
@@ -11,8 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,11 +23,11 @@
             android:layout_margin="8dp">
 
             <Button
-                android:onClick="@{viewModel::CreateNewNote}"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="New note..."/>
+                android:onClick="@{viewModel::CreateNewNote}"
+                android:text="New note..." />
 
 
         </RelativeLayout>
@@ -37,18 +40,17 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:addTextChangedListener="@{viewModel.onTextChanged()}"
                 android:background="@null"
                 android:hint="Search..."
                 android:padding="16dp"
-                android:textSize="15sp"
-                android:addTextChangedListener="@{viewModel.onTextChanged()}"
-                />
+                android:textSize="15sp" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </layout>

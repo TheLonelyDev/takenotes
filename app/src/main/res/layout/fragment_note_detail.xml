@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel" />
@@ -60,18 +62,18 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:gravity="top|left"
-            android:padding="16dp"
-            android:singleLine="true"
-            android:textColor="#fefefe"
-            android:textStyle="bold"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textIsSelectable="true"
-            android:scrollbars="horizontal"
-            android:maxLines="1"
-            android:inputType="text"
             android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="16dp"
+            android:scrollbars="horizontal"
+            android:singleLine="true"
             android:text="@={viewModel.note.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#fefefe"
+            android:textIsSelectable="true"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/note_banner"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_bottom_shader"
             app:layout_constraintStart_toStartOf="@+id/note_banner_bottom_shader"
@@ -82,12 +84,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="64dp"
-            android:gravity="top|left"
-            android:padding="16dp"
-            android:textIsSelectable="true"
-            android:inputType="textMultiLine"
             android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:padding="16dp"
             android:text="@={viewModel.note.detail}"
+            android:textIsSelectable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_top_shader"
             app:layout_constraintHorizontal_bias="0.0"
@@ -150,8 +152,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_detail">
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/note_detail"></HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
