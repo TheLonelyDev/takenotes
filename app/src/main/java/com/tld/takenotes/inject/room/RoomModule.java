@@ -5,9 +5,9 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.tld.takenotes.model.dao.NoteDao;
-import com.tld.takenotes.repository.RoomDatabase;
 import com.tld.takenotes.repository.NoteDataSource;
 import com.tld.takenotes.repository.NoteRepository;
+import com.tld.takenotes.repository.RoomDatabase;
 
 import javax.inject.Singleton;
 

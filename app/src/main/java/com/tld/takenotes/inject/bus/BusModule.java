@@ -40,5 +40,7 @@ public class BusModule {
 
     @Provides
     @Singleton
-    static PublishSubject<SaveCurrentNote> provideSaveCurrentNote() { return PublishSubject.create(); }
+    static PublishSubject<SaveCurrentNote> provideSaveCurrentNote() {
+        return PublishSubject.create();
+    }
 }

@@ -16,6 +16,7 @@ public class MainViewModel {
     private boolean isTwoPane = false;
     private MainListener listener;
     private CompositeDisposable disposable;
+
     public MainViewModel(final MainListener listener) {
         this.listener = listener;
 

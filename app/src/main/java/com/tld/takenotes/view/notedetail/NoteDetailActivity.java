@@ -3,7 +3,6 @@ package com.tld.takenotes.view.notedetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.tld.takenotes.R;
 import com.tld.takenotes.model.entity.Note;
-import com.tld.takenotes.view.main.MainActivity;
 
 import org.parceler.Parcels;
 

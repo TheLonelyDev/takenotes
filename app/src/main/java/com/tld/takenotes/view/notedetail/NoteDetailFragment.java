@@ -14,7 +14,6 @@ import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
 import com.tld.takenotes.events.DeleteCurrentNote;
-import com.tld.takenotes.events.NoteSearch;
 import com.tld.takenotes.inject.notedetail.DaggerNoteDetailComponent;
 import com.tld.takenotes.inject.notedetail.NoteDetailModule;
 import com.tld.takenotes.model.entity.Note;
@@ -46,8 +45,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     }
 
     @Override
-    public void DeleteNote(DeleteCurrentNote deleteCurrentNote)
-    {
+    public void DeleteNote(DeleteCurrentNote deleteCurrentNote) {
         if (getActivity() != null)
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
     }

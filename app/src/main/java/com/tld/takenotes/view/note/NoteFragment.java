@@ -1,12 +1,9 @@
 package com.tld.takenotes.view.note;
 
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +25,6 @@ import com.tld.takenotes.repository.NoteRepository;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -80,14 +76,12 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     }
 
     @Override
-    public void SaveNote(SaveCurrentNote saveCurrentNote)
-    {
+    public void SaveNote(SaveCurrentNote saveCurrentNote) {
         noteRepository.updateNote(saveCurrentNote.getNote());
     }
 
     @Override
-    public void DeleteNote(DeleteCurrentNote deleteCurrentNote)
-    {
+    public void DeleteNote(DeleteCurrentNote deleteCurrentNote) {
         noteRepository.deleteNote(deleteCurrentNote.getNote());
 
         Search(new NoteSearch(""));

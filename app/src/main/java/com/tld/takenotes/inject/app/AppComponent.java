@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 
 import com.tld.takenotes.inject.room.RoomModule;
 import com.tld.takenotes.model.dao.NoteDao;
-import com.tld.takenotes.repository.RoomDatabase;
 import com.tld.takenotes.repository.NoteRepository;
+import com.tld.takenotes.repository.RoomDatabase;
 
 import javax.inject.Singleton;
 

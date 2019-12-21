@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class NoteEvent
-{
+public class NoteEvent {
     @Getter
     @Setter
     private Note note;

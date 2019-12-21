@@ -1,9 +1,6 @@
 package com.tld.takenotes.viewmodel.note;
 
-import android.text.Editable;
 import android.view.View;
-
-import androidx.room.Delete;
 
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.events.CreateNewNote;
@@ -21,6 +18,7 @@ import io.reactivex.functions.Consumer;
 public class NoteViewModel {
     private NoteListener listener;
     private CompositeDisposable disposable;
+
     public NoteViewModel(final NoteListener listener) {
         this.listener = listener;
 

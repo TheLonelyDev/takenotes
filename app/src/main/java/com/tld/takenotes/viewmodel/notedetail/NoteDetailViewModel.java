@@ -1,23 +1,16 @@
 package com.tld.takenotes.viewmodel.notedetail;
 
-import android.speech.tts.TextToSpeech;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.tld.takenotes.MainActivityApp;
-import com.tld.takenotes.events.CreateNewNote;
 import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.SaveCurrentNote;
 import com.tld.takenotes.model.entity.Note;
 
-import java.util.Locale;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
-import lombok.Getter;
-import lombok.Setter;
 
 public class NoteDetailViewModel {
 
@@ -40,24 +33,20 @@ public class NoteDetailViewModel {
         }));
     }
 
-    public void DeleteNote(View view)
-    {
+    public void DeleteNote(View view) {
 
         MainActivityApp.getBusComponent().getDeleteCurrentNote().onNext(new DeleteCurrentNote(note.getValue()));
     }
 
-    public void SaveNote(View view)
-    {
+    public void SaveNote(View view) {
         MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
     }
 
-    public void TTS(View view)
-    {
+    public void TTS(View view) {
         MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
     }
 
-    public interface NoteDetailListener
-    {
+    public interface NoteDetailListener {
         void DeleteNote(DeleteCurrentNote deleteCurrentNote);
     }
 }

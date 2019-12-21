@@ -4,12 +4,10 @@ import com.tld.takenotes.model.entity.Note;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-public class NoteClickEvent
-{
+public class NoteClickEvent {
     @Setter
     @Getter
     private Note note;

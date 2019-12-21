@@ -12,7 +12,7 @@ import org.parceler.Parcel;
 @Parcel(
         value = Parcel.Serialization.BEAN,
         analyze = {Note.class})
-public class Note extends BaseObservable  {
+public class Note extends BaseObservable {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     public int id;
