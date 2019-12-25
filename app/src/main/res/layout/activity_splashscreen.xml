@@ -19,6 +19,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:background="@color/primary_dark"
+            android:textColor="@color/divider"
             android:onClick="@{viewModel::LocalClicked}"
             android:paddingLeft="@dimen/small_dp"
             android:paddingRight="@dimen/small_dp"
@@ -31,6 +33,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
+            android:background="@color/primary_text"
+            android:textColor="@color/primary_light"
             android:onClick="@{viewModel::CloudClicked}"
             android:text="@string/cloud_storage_button" />
     </LinearLayout>
