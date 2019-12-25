@@ -72,7 +72,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="true"
             android:textStyle="bold"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/icons"
             app:layout_constraintBottom_toBottomOf="@+id/note_banner"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_bottom_shader"
             app:layout_constraintStart_toStartOf="@+id/note_banner_bottom_shader"
@@ -103,11 +103,15 @@
             android:layout_gravity="center_vertical|start"
             android:layout_margin="@dimen/small_dp"
             app:layout_anchor="@+id/item_detail_container"
-            android:src="@drawable/ic_more_horiz"
             app:layout_anchorGravity="bottom|end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            fab:menu_openDirection="up">
+            fab:menu_colorNormal="@color/accent"
+            fab:menu_colorPressed="@color/accent"
+            fab:menu_colorRipple="@color/secondary_text"
+            fab:menu_openDirection="up"
+
+            tools:visibility="visible">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/delete_fab"
@@ -115,10 +119,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:layout_margin="@dimen/small_dp"
+                android:background="@color/accent"
+                android:backgroundTint="@color/accent"
                 android:onClick="@{viewModel::DeleteNote}"
                 android:src="@drawable/ic_delete"
                 fab:fab_label="@string/note_delete"
-                fab:fab_size="mini" />
+                fab:fab_size="mini"
+                fab:menu_colorNormal="@color/accent"
+                fab:menu_colorPressed="@color/accent"
+                fab:menu_colorRipple="@color/secondary_text" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/tts_fab"
@@ -129,7 +138,10 @@
                 android:onClick="@{viewModel::TTS}"
                 android:src="@drawable/ic_record_voice_over"
                 fab:fab_label="@string/note_tts"
-                fab:fab_size="mini" />
+                fab:fab_size="mini"
+                fab:menu_colorNormal="@color/accent"
+                fab:menu_colorPressed="@color/accent"
+                fab:menu_colorRipple="@color/secondary_text" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/save_fab"
@@ -140,7 +152,10 @@
                 android:onClick="@{viewModel::SaveNote}"
                 android:src="@drawable/ic_save"
                 fab:fab_label="@string/note_save"
-                fab:fab_size="mini" />
+                fab:fab_size="mini"
+                fab:menu_colorNormal="@color/accent"
+                fab:menu_colorPressed="@color/accent"
+                fab:menu_colorRipple="@color/secondary_text" />
         </com.github.clans.fab.FloatingActionMenu>
 
         <HorizontalScrollView
