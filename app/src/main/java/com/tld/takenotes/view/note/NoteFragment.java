@@ -1,7 +1,6 @@
 package com.tld.takenotes.view.note;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
@@ -37,10 +30,7 @@ import com.tld.takenotes.repository.NoteRepository;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -93,8 +83,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         adapter.setNotes(notes);
     }
 
-    protected void Search()
-    {
+    protected void Search() {
         Search(new NoteSearch(lastSearch));
     }
 
@@ -109,13 +98,11 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
                     if (task.isSuccessful()) {
                         List<Note> notes = task.getResult().toObjects(Note.class);
 
-                        if (!lastSearch.isEmpty())
-                        {
+                        if (!lastSearch.isEmpty()) {
                             List<Note> toRemove = new ArrayList<Note>();
 
-                            for(Note note : notes)
-                            {
-                                if(!(note.getName().contains(lastSearch) || note.getDetail().contains(lastSearch)))
+                            for (Note note : notes) {
+                                if (!(note.getName().contains(lastSearch) || note.getDetail().contains(lastSearch)))
                                     toRemove.add(note);
                             }
 

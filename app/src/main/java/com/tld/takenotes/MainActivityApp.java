@@ -1,7 +1,5 @@
 package com.tld.takenotes;
 
-import android.app.Application;
-
 import androidx.multidex.MultiDexApplication;
 
 import com.tld.takenotes.inject.app.AppComponent;
