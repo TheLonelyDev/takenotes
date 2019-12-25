@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
@@ -56,7 +56,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail, container, false);
 
         // Inject
-        DaggerNoteDetailComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
+        DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
         viewModel.note.setValue((Note) Parcels.unwrap(getArguments().getParcelable("key_note")));

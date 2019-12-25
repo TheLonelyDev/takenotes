@@ -1,4 +1,4 @@
-package com.tld.takenotes.inject.app;
+package com.tld.takenotes.dagger2.app;
 
 import android.app.Application;
 import android.content.Context;

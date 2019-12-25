@@ -1,12 +1,12 @@
-package com.tld.takenotes.inject.app;
+package com.tld.takenotes.dagger2.app;
 
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.tld.takenotes.inject.room.RoomModule;
+import com.tld.takenotes.dagger2.room.RoomModule;
 import com.tld.takenotes.model.dao.NoteDao;
-import com.tld.takenotes.repository.NoteRepository;
-import com.tld.takenotes.repository.RoomDatabase;
+import com.tld.takenotes.domain.repository.NoteRepository;
+import com.tld.takenotes.domain.repository.RoomDatabase;
 
 import javax.inject.Singleton;
 

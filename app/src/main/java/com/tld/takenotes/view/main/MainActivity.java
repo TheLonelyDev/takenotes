@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.ActivityMainBinding;
 import com.tld.takenotes.dagger2.main.DaggerMainComponent;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
 
         // Tell dagger to set the main module & inject everything
         // tldr; injection
-        DaggerMainComponent.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
+        DaggerMainComponent.builder().appComponent(((TakeNotes) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
 
         Option option = Option.valueOf(getIntent().getExtras().getString("key_option"));
         viewModel.setOption(option);

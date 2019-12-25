@@ -1,6 +1,6 @@
 package com.tld.takenotes.viewmodel.main;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
@@ -29,7 +29,7 @@ public class MainViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(MainActivityApp.getBusComponent().getOnNoteClicked().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteClickEvent) {

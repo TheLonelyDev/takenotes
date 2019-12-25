@@ -2,7 +2,7 @@ package com.tld.takenotes.viewmodel.note;
 
 import android.view.View;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.NoteSearch;
@@ -31,7 +31,7 @@ public class NoteViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(MainActivityApp.getBusComponent().getCreateNewNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getCreateNewNote().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof CreateNewNote) {
@@ -40,7 +40,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(MainActivityApp.getBusComponent().getNoteSearch().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getNoteSearch().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
@@ -49,7 +49,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(MainActivityApp.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
@@ -58,7 +58,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(MainActivityApp.getBusComponent().getSaveCurrentNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof SaveCurrentNote) {
@@ -73,14 +73,14 @@ public class NoteViewModel {
     }
 
     public void CreateNewNote(View view) {
-        MainActivityApp.getBusComponent().getCreateNewNote().onNext(new CreateNewNote());
+        TakeNotes.getBusComponent().getCreateNewNote().onNext(new CreateNewNote());
     }
 
     public TextChanged onTextChanged() {
         return new TextChanged() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                MainActivityApp.getBusComponent().getNoteSearch().onNext(new NoteSearch(s.toString().trim()));
+                TakeNotes.getBusComponent().getNoteSearch().onNext(new NoteSearch(s.toString().trim()));
             }
         };
     }

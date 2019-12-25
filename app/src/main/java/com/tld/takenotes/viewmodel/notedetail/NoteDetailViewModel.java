@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.model.entity.Note;
@@ -23,7 +23,7 @@ public class NoteDetailViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(MainActivityApp.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
@@ -35,15 +35,15 @@ public class NoteDetailViewModel {
 
     public void DeleteNote(View view) {
 
-        MainActivityApp.getBusComponent().getDeleteCurrentNote().onNext(new DeleteCurrentNote(note.getValue()));
+        TakeNotes.getBusComponent().getDeleteCurrentNote().onNext(new DeleteCurrentNote(note.getValue()));
     }
 
     public void SaveNote(View view) {
-        MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
+        TakeNotes.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
     }
 
     public void TTS(View view) {
-        MainActivityApp.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
+        TakeNotes.getBusComponent().getSaveCurrentNote().onNext(new SaveCurrentNote(note.getValue()));
     }
 
     public interface NoteDetailListener {

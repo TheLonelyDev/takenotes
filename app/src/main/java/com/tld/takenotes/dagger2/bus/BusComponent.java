@@ -1,11 +1,11 @@
-package com.tld.takenotes.inject.bus;
+package com.tld.takenotes.dagger2.bus;
 
-import com.tld.takenotes.events.CreateNewNote;
-import com.tld.takenotes.events.DeleteCurrentNote;
-import com.tld.takenotes.events.NoteClickEvent;
-import com.tld.takenotes.events.NoteSearch;
-import com.tld.takenotes.events.OptionClicked;
-import com.tld.takenotes.events.SaveCurrentNote;
+import com.tld.takenotes.domain.events.CreateNewNote;
+import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.domain.events.NoteClickEvent;
+import com.tld.takenotes.domain.events.NoteSearch;
+import com.tld.takenotes.domain.events.OptionClicked;
+import com.tld.takenotes.domain.events.SaveCurrentNote;
 
 import javax.inject.Singleton;
 

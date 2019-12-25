@@ -11,7 +11,7 @@ import com.tld.takenotes.dagger2.room.RoomModule;
 
 import lombok.Getter;
 
-public class MainActivityApp extends MultiDexApplication {
+public class TakeNotes extends MultiDexApplication {
 
     @Getter
     private static BusComponent busComponent;

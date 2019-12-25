@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
@@ -75,7 +75,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
             noteRepository.newNote(note);
 
         Search(new NoteSearch(""));
-        MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+        TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 
     @Override
@@ -149,7 +149,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
         // Inject
-        DaggerNoteComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
+        DaggerNoteComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);

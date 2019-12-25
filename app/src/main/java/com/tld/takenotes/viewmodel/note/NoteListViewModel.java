@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.databinding.ObservableField;
 
 import com.hwangjr.rxbus.RxBus;
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
 import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.model.entity.Note;
@@ -37,6 +37,6 @@ public class NoteListViewModel {
     }
 
     public void onNoteClicked(View view) {
-        MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+        TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 }

@@ -3,7 +3,7 @@
     package="com.tld.takenotes">
 
     <application
-        android:name=".MainActivityApp"
+        android:name=".TakeNotes"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

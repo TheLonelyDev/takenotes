@@ -2,7 +2,7 @@ package com.tld.takenotes.viewmodel.splashscreen;
 
 import android.view.View;
 
-import com.tld.takenotes.MainActivityApp;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.model.Option;
 
@@ -18,7 +18,7 @@ public class SplashscreenViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(MainActivityApp.getBusComponent().getOptionClicked().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getOptionClicked().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof OptionClicked) {
@@ -33,11 +33,11 @@ public class SplashscreenViewModel {
     }
 
     public void LocalClicked(View view) {
-        MainActivityApp.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.LOCAL));
+        TakeNotes.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.LOCAL));
     }
 
     public void CloudClicked(View view) {
-        MainActivityApp.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.CLOUD));
+        TakeNotes.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.CLOUD));
     }
 
     public interface SplashscreenListener {
