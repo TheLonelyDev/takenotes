@@ -9,6 +9,6 @@ public class NoteSearch {
     private String keyword;
 
     public String getKeyword() {
-        return String.format("%%%s%%", this.keyword);
+        return this.keyword;
     }
 }

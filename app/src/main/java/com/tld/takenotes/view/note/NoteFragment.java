@@ -36,8 +36,10 @@ import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.repository.NoteRepository;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -56,6 +58,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     NoteRepository noteRepository;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    String lastSearch = "";
 
     public static NoteFragment newFragment(Option option) {
         NoteFragment fragment = new NoteFragment();
@@ -89,18 +93,41 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         adapter.setNotes(notes);
     }
 
+    protected void Search()
+    {
+        Search(new NoteSearch(lastSearch));
+    }
+
     @Override
     public void Search(NoteSearch noteSearch) {
+        lastSearch = noteSearch.getKeyword();
+
         if (viewModel.getOption() == Option.CLOUD)
             db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful())
-                        OnLoaded(task.getResult().toObjects(Note.class));
+                    if (task.isSuccessful()) {
+                        List<Note> notes = task.getResult().toObjects(Note.class);
+
+                        if (!lastSearch.isEmpty())
+                        {
+                            List<Note> toRemove = new ArrayList<Note>();
+
+                            for(Note note : notes)
+                            {
+                                if(!(note.getName().contains(lastSearch) || note.getDetail().contains(lastSearch)))
+                                    toRemove.add(note);
+                            }
+
+                            notes.removeAll(toRemove);
+                        }
+
+                        OnLoaded(notes);
+                    }
                 }
             });
         else
-            noteRepository.searchNotes(noteSearch.getKeyword()).observe(this, new Observer<List<Note>>() {
+            noteRepository.searchNotes(String.format("%%%s%%", lastSearch)).observe(this, new Observer<List<Note>>() {
                 @Override
                 public void onChanged(@Nullable List<Note> notes) {
                     OnLoaded(notes);
@@ -114,6 +141,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
             db.collection("notes").document(saveCurrentNote.getNote().documentId).set(saveCurrentNote.getNote());
         else
             noteRepository.updateNote(saveCurrentNote.getNote());
+
+        Search();
     }
 
     @Override
@@ -123,7 +152,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         else
             noteRepository.deleteNote(deleteCurrentNote.getNote());
 
-        Search(new NoteSearch(""));
+        Search();
         getActivity().finishActivity(1);
     }
 

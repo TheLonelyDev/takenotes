@@ -80,7 +80,6 @@ public class NoteViewModel {
         return new TextChanged() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //if(s.toString().trim().length() > 1)
                 MainActivityApp.getBusComponent().getNoteSearch().onNext(new NoteSearch(s.toString().trim()));
             }
         };
