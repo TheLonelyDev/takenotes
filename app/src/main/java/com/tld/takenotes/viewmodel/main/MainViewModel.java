@@ -2,6 +2,7 @@ package com.tld.takenotes.viewmodel.main;
 
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.events.NoteClickEvent;
+import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -14,8 +15,14 @@ public class MainViewModel {
     @Getter
     @Setter
     private boolean isTwoPane = false;
+
+    @Getter
+    @Setter
+    private Option option;
+
     private MainListener listener;
     private CompositeDisposable disposable;
+
 
     public MainViewModel(final MainListener listener) {
         this.listener = listener;

@@ -13,11 +13,14 @@ import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.ActivityMainBinding;
 import com.tld.takenotes.inject.main.DaggerMainComponent;
 import com.tld.takenotes.inject.main.MainModule;
+import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.view.note.NoteFragment;
 import com.tld.takenotes.view.notedetail.NoteDetailActivity;
 import com.tld.takenotes.view.notedetail.NoteDetailFragment;
 import com.tld.takenotes.viewmodel.main.MainViewModel;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -25,17 +28,17 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     @Inject
     protected MainViewModel viewModel;
     private ActivityMainBinding binding;
-    private Note currentNote;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context, Option option) {
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
+
+        bundle.putParcelable("key_option", Parcels.wrap(option));
 
         intent.putExtras(bundle);
 
         return intent;
     }
-
 
     @Override
     public void onNoteClicked(Note note) {
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        Option option = Parcels.unwrap(getIntent().getExtras().getParcelable("key_option"));
+        viewModel.setOption(option);
 
         // Tell dagger to set the main module & inject everything
         // tldr; injection

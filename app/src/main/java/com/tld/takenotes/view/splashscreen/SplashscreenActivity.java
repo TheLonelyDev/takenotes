@@ -10,7 +10,8 @@ import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.ActivitySplashscreenBinding;
 import com.tld.takenotes.inject.splashscreen.DaggerSplashscreenComponent;
 import com.tld.takenotes.inject.splashscreen.SplashscreenModule;
-import com.tld.takenotes.model.entity.Option;
+import com.tld.takenotes.model.Option;
+import com.tld.takenotes.view.main.MainActivity;
 import com.tld.takenotes.viewmodel.splashscreen.SplashscreenViewModel;
 
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     @Override
     public void onOptionClicked(Option option) {
-
+        startActivity(MainActivity.newIntent(this, option));
     }
 
     @Override
