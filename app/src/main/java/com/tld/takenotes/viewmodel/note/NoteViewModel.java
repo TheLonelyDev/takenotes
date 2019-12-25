@@ -7,6 +7,7 @@ import com.tld.takenotes.events.CreateNewNote;
 import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteSearch;
 import com.tld.takenotes.events.SaveCurrentNote;
+import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.util.TextChanged;
 
@@ -14,10 +15,16 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import lombok.Getter;
+import lombok.Setter;
 
 public class NoteViewModel {
     private NoteListener listener;
     private CompositeDisposable disposable;
+
+    @Getter
+    @Setter
+    private Option option;
 
     public NoteViewModel(final NoteListener listener) {
         this.listener = listener;

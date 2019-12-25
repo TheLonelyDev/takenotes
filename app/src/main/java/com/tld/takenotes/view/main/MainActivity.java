@@ -2,7 +2,6 @@ package com.tld.takenotes.view.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -18,13 +17,9 @@ import com.tld.takenotes.inject.main.MainModule;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.view.note.NoteFragment;
-import com.tld.takenotes.view.note.NoteFragmentCloud;
-import com.tld.takenotes.view.note.NoteFragmentLocal;
 import com.tld.takenotes.view.notedetail.NoteDetailActivity;
 import com.tld.takenotes.view.notedetail.NoteDetailFragment;
 import com.tld.takenotes.viewmodel.main.MainViewModel;
-
-import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         // http://developer.android.com/guide/components/fragments.html
 
         if (savedInstanceState == null)
-            getSupportFragmentManager().beginTransaction().add(R.id.main_container, viewModel.getOption() == Option.CLOUD ? NoteFragmentCloud.newFragment() : NoteFragmentLocal.newFragment()).commitAllowingStateLoss();
+            getSupportFragmentManager().beginTransaction().add(R.id.main_container, NoteFragment.newFragment(viewModel.getOption())).commitAllowingStateLoss();
 
         binding.setViewModel(viewModel);
 

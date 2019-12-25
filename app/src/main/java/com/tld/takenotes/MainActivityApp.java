@@ -2,6 +2,8 @@ package com.tld.takenotes;
 
 import android.app.Application;
 
+import androidx.multidex.MultiDexApplication;
+
 import com.tld.takenotes.inject.app.AppComponent;
 import com.tld.takenotes.inject.app.AppModule;
 import com.tld.takenotes.inject.app.DaggerAppComponent;
@@ -11,7 +13,7 @@ import com.tld.takenotes.inject.room.RoomModule;
 
 import lombok.Getter;
 
-public class MainActivityApp extends Application {
+public class MainActivityApp extends MultiDexApplication {
 
     @Getter
     private static BusComponent busComponent;
