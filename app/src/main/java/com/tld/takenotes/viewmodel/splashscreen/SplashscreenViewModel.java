@@ -1,17 +1,13 @@
 package com.tld.takenotes.viewmodel.splashscreen;
 
 import com.tld.takenotes.MainActivityApp;
-import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.events.OptionClicked;
-import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.model.entity.Option;
-import com.tld.takenotes.viewmodel.main.MainViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
-public class SplashscreenViewModel
-{
+public class SplashscreenViewModel {
     private SplashscreenViewModel.SplashscreenListener listener;
     private CompositeDisposable disposable;
 

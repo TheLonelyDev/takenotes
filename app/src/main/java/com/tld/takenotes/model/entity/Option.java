@@ -1,6 +1,5 @@
 package com.tld.takenotes.model.entity;
 
-public class Option
-{
+public class Option {
 
 }

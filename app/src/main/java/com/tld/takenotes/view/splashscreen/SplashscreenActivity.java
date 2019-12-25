@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.ActivitySplashscreenBinding;
+import com.tld.takenotes.inject.splashscreen.DaggerSplashscreenComponent;
+import com.tld.takenotes.inject.splashscreen.SplashscreenModule;
 import com.tld.takenotes.model.entity.Option;
 import com.tld.takenotes.viewmodel.splashscreen.SplashscreenViewModel;
 
@@ -19,8 +21,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     private ActivitySplashscreenBinding binding;
 
     @Override
-    public void onOptionClicked(Option option)
-    {
+    public void onOptionClicked(Option option) {
 
     }
 
@@ -29,7 +30,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        //DaggerSpla.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).mainModule(new SplashscreenModule(this)).build().inject(this);
+        DaggerSplashscreenComponent.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).splashscreenModule(new SplashscreenModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
     }
