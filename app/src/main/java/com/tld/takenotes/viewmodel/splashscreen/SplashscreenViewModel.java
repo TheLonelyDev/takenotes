@@ -32,11 +32,11 @@ public class SplashscreenViewModel {
         disposable.clear();
     }
 
-    public void LocalClicked(View view){
+    public void LocalClicked(View view) {
         MainActivityApp.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.LOCAL));
     }
 
-    public void CloudClicked(View view){
+    public void CloudClicked(View view) {
         MainActivityApp.getBusComponent().getOptionClicked().onNext(new OptionClicked(Option.CLOUD));
     }
 

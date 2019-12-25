@@ -29,7 +29,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen);
 
         DaggerSplashscreenComponent.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).splashscreenModule(new SplashscreenModule(this)).build().inject(this);
 

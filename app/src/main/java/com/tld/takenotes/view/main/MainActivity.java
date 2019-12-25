@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putParcelable("key_option", Parcels.wrap(option));
+        bundle.putString("key_option", option.name());
 
         intent.putExtras(bundle);
 
@@ -55,12 +56,12 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Option option = Parcels.unwrap(getIntent().getExtras().getParcelable("key_option"));
-        viewModel.setOption(option);
-
         // Tell dagger to set the main module & inject everything
         // tldr; injection
         DaggerMainComponent.builder().appComponent(((MainActivityApp) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
+
+        Option option = Option.valueOf(getIntent().getExtras().getString("key_option"));
+        viewModel.setOption(option);
 
         // Init views
         // Do two pane detection by finding a specific view; grabbed from the MasterDetailFlow demo
@@ -77,11 +78,24 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         viewModel.onDestroy();
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
