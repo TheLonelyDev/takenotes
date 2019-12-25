@@ -1,6 +1,7 @@
 package com.tld.takenotes.view.note;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
@@ -44,6 +47,17 @@ public class NoteFragmentCloud extends NoteFragment implements NoteViewModel.Not
         note.setName("New note");
         note.setDetail("");
 
+        note.setId((int) noteRepository.newNote(note));
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/notes");
+
+        myRef.setValue(note);
+
+        Log.d("???", myRef.push().getKey());
+
+
         MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 
@@ -66,5 +80,21 @@ public class NoteFragmentCloud extends NoteFragment implements NoteViewModel.Not
 
         Search(new NoteSearch(""));
         getActivity().finishActivity(1);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
+
+        // Inject
+        DaggerNoteComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
+
+        binding.setViewModel(viewModel);
+        binding.recyclerView.setAdapter(adapter);
+
+        Search(new NoteSearch(""));
+
+        return binding.getRoot();
     }
 }

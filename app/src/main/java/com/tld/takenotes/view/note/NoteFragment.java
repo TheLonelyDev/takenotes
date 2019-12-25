@@ -40,6 +40,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Inject
     NoteRepository noteRepository;
 
+
     public static NoteFragment newFragment() {
         NoteFragment fragment = new NoteFragment();
         Bundle arguments = new Bundle();
@@ -51,13 +52,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
     @Override
     public void CreateNewNote() {
-        Note note = new Note();
-        note.setName("New note");
-        note.setDetail("");
-
-        note.setId((int) noteRepository.newNote(note));
-
-        MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 
     @Override
@@ -67,42 +61,19 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
     @Override
     public void Search(NoteSearch noteSearch) {
-        noteRepository.searchNotes(noteSearch.getKeyword()).observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                OnLoaded(notes);
-            }
-        });
+
     }
 
     @Override
     public void SaveNote(SaveCurrentNote saveCurrentNote) {
-        noteRepository.updateNote(saveCurrentNote.getNote());
     }
 
     @Override
     public void DeleteNote(DeleteCurrentNote deleteCurrentNote) {
-        noteRepository.deleteNote(deleteCurrentNote.getNote());
 
-        Search(new NoteSearch(""));
-        getActivity().finishActivity(1);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
-        // Inject
-        DaggerNoteComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
-
-        binding.setViewModel(viewModel);
-        binding.recyclerView.setAdapter(adapter);
-
-        Search(new NoteSearch(""));
-
-        return binding.getRoot();
-    }
 
     @Override
     public void onDestroy() {

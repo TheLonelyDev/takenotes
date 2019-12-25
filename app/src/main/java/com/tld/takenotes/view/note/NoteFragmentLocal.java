@@ -76,4 +76,20 @@ public class NoteFragmentLocal extends NoteFragment implements NoteViewModel.Not
         Search(new NoteSearch(""));
         getActivity().finishActivity(1);
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
+
+        // Inject
+        DaggerNoteComponent.builder().appComponent(((MainActivityApp) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
+
+        binding.setViewModel(viewModel);
+        binding.recyclerView.setAdapter(adapter);
+
+        Search(new NoteSearch(""));
+
+        return binding.getRoot();
+    }
 }

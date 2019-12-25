@@ -31,14 +31,14 @@ public class RoomModule {
 
     @Singleton
     @Provides
-    NoteDao providesProductDao(RoomDatabase roomDatabase) {
+    NoteDao providesNoteDao(RoomDatabase roomDatabase) {
         return roomDatabase.getNoteDao();
     }
 
     @Singleton
     @Provides
-    NoteRepository productRepository(NoteDao productDao) {
-        return new NoteDataSource(productDao);
+    NoteRepository noteRepository(NoteDao noteDao) {
+        return new NoteDataSource(noteDao);
     }
 
 }
