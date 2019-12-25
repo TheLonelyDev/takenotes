@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import com.google.firebase.firestore.DocumentId;
 
 import org.parceler.Parcel;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Parcel(
@@ -14,21 +19,27 @@ import org.parceler.Parcel;
         analyze = {Note.class})
 public class Note extends BaseObservable {
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    public int id;
+    @PrimaryKey
+    public String id;
     public String name;
 
     public String detail;
+
+    @Getter
+    @Setter
+    @DocumentId
+    @Ignore
+    public String documentId;
 
 
     public Note() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

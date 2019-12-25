@@ -12,12 +12,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
@@ -35,6 +39,7 @@ import com.tld.takenotes.viewmodel.note.NoteViewModel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -50,6 +55,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Inject
     NoteRepository noteRepository;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public static NoteFragment newFragment(Option option) {
         NoteFragment fragment = new NoteFragment();
         Bundle arguments = new Bundle();
@@ -64,35 +71,16 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void CreateNewNote() {
         Note note = new Note();
+        note.setId(UUID.randomUUID().toString());
         note.setName("New note");
         note.setDetail("");
 
-        note.setId((int) noteRepository.newNote(note));
+        if (viewModel.getOption() == Option.CLOUD)
+            db.collection("notes").add(note);
+        else
+            noteRepository.newNote(note);
 
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-        // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("zz", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("zz", "Error adding document", e);
-                    }
-                });
-
+        Search(new NoteSearch(""));
         MainActivityApp.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
     }
 
@@ -103,22 +91,37 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
     @Override
     public void Search(NoteSearch noteSearch) {
-        noteRepository.searchNotes(noteSearch.getKeyword()).observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                OnLoaded(notes);
-            }
-        });
+        if (viewModel.getOption() == Option.CLOUD)
+            db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful())
+                        OnLoaded(task.getResult().toObjects(Note.class));
+                }
+            });
+        else
+            noteRepository.searchNotes(noteSearch.getKeyword()).observe(this, new Observer<List<Note>>() {
+                @Override
+                public void onChanged(@Nullable List<Note> notes) {
+                    OnLoaded(notes);
+                }
+            });
     }
 
     @Override
     public void SaveNote(SaveCurrentNote saveCurrentNote) {
-        noteRepository.updateNote(saveCurrentNote.getNote());
+        if (viewModel.getOption() == Option.CLOUD)
+            db.collection("notes").document(saveCurrentNote.getNote().documentId).set(saveCurrentNote.getNote());
+        else
+            noteRepository.updateNote(saveCurrentNote.getNote());
     }
 
     @Override
     public void DeleteNote(DeleteCurrentNote deleteCurrentNote) {
-        noteRepository.deleteNote(deleteCurrentNote.getNote());
+        if (viewModel.getOption() == Option.CLOUD)
+            db.collection("notes").document(deleteCurrentNote.getNote().documentId).delete();
+        else
+            noteRepository.deleteNote(deleteCurrentNote.getNote());
 
         Search(new NoteSearch(""));
         getActivity().finishActivity(1);
