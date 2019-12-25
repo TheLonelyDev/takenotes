@@ -1,4 +1,6 @@
 package com.tld.takenotes.view.splashscreen;
 
-public class SplashscreenActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SplashscreenActivity extends AppCompatActivity {
 }

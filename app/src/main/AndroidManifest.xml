@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.splashscreen.SplashscreenActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -24,6 +24,11 @@
 
         <activity
             android:name=".view.notedetail.NoteDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".view.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>
     </application>
