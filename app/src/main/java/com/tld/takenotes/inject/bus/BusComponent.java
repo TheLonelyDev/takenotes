@@ -4,6 +4,7 @@ import com.tld.takenotes.events.CreateNewNote;
 import com.tld.takenotes.events.DeleteCurrentNote;
 import com.tld.takenotes.events.NoteClickEvent;
 import com.tld.takenotes.events.NoteSearch;
+import com.tld.takenotes.events.OptionClicked;
 import com.tld.takenotes.events.SaveCurrentNote;
 
 import javax.inject.Singleton;
@@ -23,4 +24,6 @@ public interface BusComponent {
     PublishSubject<DeleteCurrentNote> getDeleteCurrentNote();
 
     PublishSubject<SaveCurrentNote> getSaveCurrentNote();
+
+    PublishSubject<OptionClicked> getOptionClicked();
 }
