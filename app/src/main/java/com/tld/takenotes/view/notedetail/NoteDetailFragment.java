@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.tld.takenotes.MainActivityApp;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
-import com.tld.takenotes.events.DeleteCurrentNote;
-import com.tld.takenotes.inject.notedetail.DaggerNoteDetailComponent;
-import com.tld.takenotes.inject.notedetail.NoteDetailModule;
+import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.dagger2.notedetail.DaggerNoteDetailComponent;
+import com.tld.takenotes.dagger2.notedetail.NoteDetailModule;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel;
 

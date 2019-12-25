@@ -1,7 +1,7 @@
 package com.tld.takenotes.viewmodel.main;
 
 import com.tld.takenotes.MainActivityApp;
-import com.tld.takenotes.events.NoteClickEvent;
+import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 

@@ -5,8 +5,8 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tld.takenotes.MainActivityApp;
-import com.tld.takenotes.events.DeleteCurrentNote;
-import com.tld.takenotes.events.SaveCurrentNote;
+import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.model.entity.Note;
 
 import io.reactivex.disposables.CompositeDisposable;

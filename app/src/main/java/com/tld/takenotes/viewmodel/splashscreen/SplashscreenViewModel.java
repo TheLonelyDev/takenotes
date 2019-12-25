@@ -3,7 +3,7 @@ package com.tld.takenotes.viewmodel.splashscreen;
 import android.view.View;
 
 import com.tld.takenotes.MainActivityApp;
-import com.tld.takenotes.events.OptionClicked;
+import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.model.Option;
 
 import io.reactivex.disposables.CompositeDisposable;

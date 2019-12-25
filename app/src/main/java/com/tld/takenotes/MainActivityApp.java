@@ -2,12 +2,12 @@ package com.tld.takenotes;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.tld.takenotes.inject.app.AppComponent;
-import com.tld.takenotes.inject.app.AppModule;
-import com.tld.takenotes.inject.app.DaggerAppComponent;
-import com.tld.takenotes.inject.bus.BusComponent;
-import com.tld.takenotes.inject.bus.DaggerBusComponent;
-import com.tld.takenotes.inject.room.RoomModule;
+import com.tld.takenotes.dagger2.app.AppComponent;
+import com.tld.takenotes.dagger2.app.AppModule;
+import com.tld.takenotes.dagger2.app.DaggerAppComponent;
+import com.tld.takenotes.dagger2.bus.BusComponent;
+import com.tld.takenotes.dagger2.bus.DaggerBusComponent;
+import com.tld.takenotes.dagger2.room.RoomModule;
 
 import lombok.Getter;
 
