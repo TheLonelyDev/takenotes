@@ -23,6 +23,7 @@
             android:id="@+id/note_banner"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/banner_height"
+            android:contentDescription="@string/banner_image"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             app:layout_collapseMode="parallax"
@@ -62,7 +63,7 @@
             android:layout_height="@dimen/no_dp"
             android:layout_marginTop="@dimen/normal_dp"
             android:background="@android:color/transparent"
-            android:gravity="top|left"
+            android:gravity="top|start"
             android:inputType="text"
             android:maxLines="1"
             android:padding="@dimen/normal_dp"
@@ -84,7 +85,7 @@
             android:layout_height="@dimen/no_dp"
             android:layout_marginBottom="@dimen/huge_dp"
             android:background="@android:color/transparent"
-            android:gravity="top|left"
+            android:gravity="top|start"
             android:inputType="textMultiLine"
             android:padding="@dimen/normal_dp"
             android:text="@={viewModel.note.detail}"
@@ -102,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
             android:layout_margin="@dimen/small_dp"
-            app:layout_anchor="@+id/item_detail_container"
+            app:layout_anchor="@+id/note_detail"
             app:layout_anchorGravity="bottom|end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +111,6 @@
             fab:menu_colorPressed="@color/accent"
             fab:menu_colorRipple="@color/secondary_text"
             fab:menu_openDirection="up"
-
             tools:visibility="visible">
 
             <com.github.clans.fab.FloatingActionButton
@@ -157,20 +157,6 @@
                 fab:menu_colorPressed="@color/accent"
                 fab:menu_colorRipple="@color/secondary_text" />
         </com.github.clans.fab.FloatingActionMenu>
-
-        <HorizontalScrollView
-            android:layout_width="@dimen/no_dp"
-            android:layout_height="@dimen/no_dp"
-            android:layout_marginStart="@dimen/small_dp"
-            android:layout_marginLeft="@dimen/small_dp"
-            android:layout_marginTop="@dimen/small_dp"
-            android:layout_marginEnd="@dimen/huge_dp"
-            android:layout_marginRight="@dimen/huge_dp"
-            android:layout_marginBottom="@dimen/small_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,4 +10,5 @@
     <string name="cloud_storage_button">Cloud based notes</string>
     <string name="search_hint">Search...</string>
     <string name="new_note">New note</string>
+    <string name="banner_image">Banner Image</string>
 </resources>

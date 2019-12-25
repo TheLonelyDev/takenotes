@@ -39,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:addTextChangedListener="@{viewModel.onTextChanged()}"
                 android:background="@null"
+                android:inputType="text"
                 android:hint="@string/search_hint"
                 android:padding="@dimen/normal_dp" />
         </RelativeLayout>
