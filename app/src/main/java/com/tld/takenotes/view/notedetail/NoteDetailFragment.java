@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
+import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.domain.api.bing.BingInterface;
 import com.tld.takenotes.domain.api.bing.Entity.BingImageResponse;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
@@ -77,7 +78,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
             @Override
             public void onResponse(Call<BingImageResponse> call, Response<BingImageResponse> response) {
                 BingImageResponse bingImageResponse = response.body();
-                Picasso.get().load(String.format("https://bing.com/%s", bingImageResponse.getImages().get(0).getUrl())).placeholder(R.drawable.bg).fit().into(binding.noteBanner);
+                Picasso.get().load(String.format("%s%s", Constants.BING_API, bingImageResponse.getImages().get(0).getUrl())).placeholder(R.drawable.bg).fit().into(binding.noteBanner);
             }
 
             @Override

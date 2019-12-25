@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/note_banner"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/banner_height"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop"
             app:layout_collapseMode="parallax"
@@ -33,7 +33,7 @@
         <View
             android:id="@+id/note_banner_top_shader"
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
+            android:layout_height="@dimen/banner_shading_height"
             android:background="@drawable/scrim_top"
             app:layout_collapseMode="pin"
             app:layout_constraintBottom_toTopOf="@+id/note_banner"
@@ -46,7 +46,7 @@
         <View
             android:id="@+id/note_banner_bottom_shader"
             android:layout_width="wrap_content"
-            android:layout_height="75dp"
+            android:layout_height="@dimen/banner_shading_height"
             android:background="@drawable/scrim_bottom"
             app:layout_constraintBottom_toBottomOf="@+id/note_banner"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,14 +58,14 @@
         <EditText
             android:id="@+id/note_title"
             style="?android:attr/textAppearanceLarge"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="@dimen/no_dp"
+            android:layout_height="@dimen/no_dp"
+            android:layout_marginTop="@dimen/normal_dp"
             android:background="@android:color/transparent"
             android:gravity="top|left"
             android:inputType="text"
             android:maxLines="1"
-            android:padding="16dp"
+            android:padding="@dimen/normal_dp"
             android:scrollbars="horizontal"
             android:singleLine="true"
             android:text="@={viewModel.note.name}"
@@ -80,13 +80,13 @@
 
         <EditText
             android:id="@+id/note_detail"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="64dp"
+            android:layout_width="@dimen/no_dp"
+            android:layout_height="@dimen/no_dp"
+            android:layout_marginBottom="@dimen/huge_dp"
             android:background="@android:color/transparent"
             android:gravity="top|left"
             android:inputType="textMultiLine"
-            android:padding="16dp"
+            android:padding="@dimen/normal_dp"
             android:text="@={viewModel.note.detail}"
             android:textIsSelectable="true"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|start"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_margin="@dimen/small_dp"
             app:layout_anchor="@+id/item_detail_container"
             app:layout_anchorGravity="bottom|end"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -113,9 +113,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::DeleteNote}"
-                fab:fab_label="Delete"
+                fab:fab_label="@string/note_delete"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
@@ -123,9 +123,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::TTS}"
-                fab:fab_label="Text To Speech"
+                fab:fab_label="@string/note_tts"
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
@@ -133,25 +133,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::SaveNote}"
-                fab:fab_label="Save changes"
+                fab:fab_label="@string/note_save"
                 fab:fab_size="mini" />
         </com.github.clans.fab.FloatingActionMenu>
 
         <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="84dp"
-            android:layout_marginRight="84dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/no_dp"
+            android:layout_height="@dimen/no_dp"
+            android:layout_marginStart="@dimen/small_dp"
+            android:layout_marginLeft="@dimen/small_dp"
+            android:layout_marginTop="@dimen/small_dp"
+            android:layout_marginEnd="@dimen/huge_dp"
+            android:layout_marginRight="@dimen/huge_dp"
+            android:layout_marginBottom="@dimen/small_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/note_detail"></HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/note_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

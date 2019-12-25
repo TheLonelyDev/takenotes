@@ -1,5 +1,6 @@
 package com.tld.takenotes.dagger2.app;
 
+import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.domain.api.bing.BingHandler;
 import com.tld.takenotes.domain.api.bing.BingInterface;
 
@@ -47,7 +48,7 @@ public class NetworkModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.bing.com/")
+                .baseUrl(Constants.BING_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

@@ -18,10 +18,7 @@
         android:clickable="true"
         android:onClick="@{viewModel::onNoteClicked}"
         android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingTop="16dp"
-        android:paddingRight="24dp"
-        android:paddingBottom="16dp">
+        android:padding="@dimen/normal_dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +31,6 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{viewModel.detail}" />
-
 
     </LinearLayout>
 </layout>

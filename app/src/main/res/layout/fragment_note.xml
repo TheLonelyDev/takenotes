@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
 
         <variable
@@ -19,32 +18,29 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_margin="8dp">
+            android:layout_height="@dimen/large_dp"
+            android:layout_margin="@dimen/small_dp">
 
             <Button
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:onClick="@{viewModel::CreateNewNote}"
-                android:text="New note..." />
-
-
+                android:text="@string/new_note" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_margin="8dp">
+            android:layout_height="@dimen/large_dp"
+            android:layout_margin="@dimen/small_dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:addTextChangedListener="@{viewModel.onTextChanged()}"
                 android:background="@null"
-                android:hint="Search..."
-                android:padding="16dp"
-                android:textSize="15sp" />
+                android:hint="@string/search_hint"
+                android:padding="@dimen/normal_dp" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

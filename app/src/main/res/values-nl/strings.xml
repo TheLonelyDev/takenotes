@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TakeNotes</string>
+
+    <string name="name">%1$s</string>
+    <string name="detail">%1$s</string>
+    <string name="note_save">Sla notitie op</string>
+    <string name="note_delete">Verwijder notitie</string>
+    <string name="note_tts">Text to speech</string>
+    <string name="local_storage_button">Lokale notities</string>
+    <string name="cloud_storage_button">Cloud notities</string>
+    <string name="search_hint">Zoeken...</string>
+    <string name="new_note">Nieuwe notitie</string>
+</resources>
