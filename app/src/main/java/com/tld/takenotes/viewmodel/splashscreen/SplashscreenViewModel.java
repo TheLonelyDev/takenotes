@@ -3,8 +3,12 @@ package com.tld.takenotes.viewmodel.splashscreen;
 import android.view.View;
 
 import com.tld.takenotes.TakeNotes;
+import com.tld.takenotes.dagger2.app.NetworkModule;
+import com.tld.takenotes.domain.api.bing.BingHandler;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.model.Option;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;

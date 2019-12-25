@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.tld.takenotes.dagger2.room.RoomModule;
+import com.tld.takenotes.domain.api.bing.BingInterface;
 import com.tld.takenotes.model.dao.NoteDao;
 import com.tld.takenotes.domain.repository.NoteRepository;
 import com.tld.takenotes.domain.repository.RoomDatabase;
@@ -22,6 +23,8 @@ public interface AppComponent {
     RoomDatabase roomDatabase();
 
     NoteRepository noteRepository();
+
+    BingInterface bingInterface();
 
     Gson gson();
 }

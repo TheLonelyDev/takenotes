@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication;
 import com.tld.takenotes.dagger2.app.AppComponent;
 import com.tld.takenotes.dagger2.app.AppModule;
 import com.tld.takenotes.dagger2.app.DaggerAppComponent;
+import com.tld.takenotes.dagger2.app.NetworkModule;
 import com.tld.takenotes.dagger2.bus.BusComponent;
 import com.tld.takenotes.dagger2.bus.DaggerBusComponent;
 import com.tld.takenotes.dagger2.room.RoomModule;
@@ -22,7 +23,7 @@ public class TakeNotes extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).roomModule(new RoomModule(this)).build();
+        this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).roomModule(new RoomModule(this)).networkModule(new NetworkModule()).build();
         busComponent = DaggerBusComponent.create();
     }
 }

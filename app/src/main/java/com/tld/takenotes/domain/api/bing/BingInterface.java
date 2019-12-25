@@ -1,5 +1,10 @@
 package com.tld.takenotes.domain.api.bing;
 
-public interface BingSource {
-    Observable<BingImageResponse> getImage();
+import com.tld.takenotes.domain.api.bing.Entity.BingImageResponse;
+
+import io.reactivex.Observable;
+import retrofit2.Call;
+
+public interface BingInterface {
+    Call<BingImageResponse> getImage();
 }

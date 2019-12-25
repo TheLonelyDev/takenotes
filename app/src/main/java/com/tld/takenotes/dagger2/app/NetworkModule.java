@@ -1,5 +1,8 @@
 package com.tld.takenotes.dagger2.app;
 
+import com.tld.takenotes.domain.api.bing.BingHandler;
+import com.tld.takenotes.domain.api.bing.BingInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +34,7 @@ public class NetworkModule {
     @Singleton
     OkHttpClient provideOkHttpClient(HttpLoggingInterceptor httpLoggingInterceptor) {
         List<Protocol> protocols = new ArrayList<>();
-        protocols.add(Protocol.HTTP_2);
+        protocols.add(Protocol.HTTP_1_1);
         OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
         okHttpClient.connectTimeout(2, TimeUnit.MINUTES);
         okHttpClient.readTimeout(2, TimeUnit.MINUTES);
@@ -50,5 +53,11 @@ public class NetworkModule {
                 .client(okHttpClient)
                 .build();
         return retrofit;
+    }
+
+    @Provides
+    @Singleton
+    BingInterface provideBingInterface(Retrofit retrofit) {
+        return new BingHandler(retrofit);
     }
 }
