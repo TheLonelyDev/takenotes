@@ -7,6 +7,7 @@ import com.tld.takenotes.domain.events.NoteSearch;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.domain.events.TTSNote;
+import com.tld.takenotes.domain.events.ToastEvent;
 
 import javax.inject.Singleton;
 
@@ -55,6 +56,12 @@ public class BusModule {
     @Provides
     @Singleton
     static PublishSubject<TTSNote> provideTTSNote() {
+        return PublishSubject.create();
+    }
+
+    @Provides
+    @Singleton
+    static PublishSubject<ToastEvent> provideToast() {
         return PublishSubject.create();
     }
 }

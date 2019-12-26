@@ -54,7 +54,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void ShowToast(int resourceId)
     {
-        Toast toast = Toast.makeText(getContext(), getResources().getString(resourceId), Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(resourceId), Toast.LENGTH_SHORT);
         toast.show();
     }
 

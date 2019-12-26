@@ -1,5 +1,7 @@
 package com.tld.takenotes.dagger2.bus;
 
+import android.widget.Toast;
+
 import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.NoteClickEvent;
@@ -7,6 +9,7 @@ import com.tld.takenotes.domain.events.NoteSearch;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.domain.events.TTSNote;
+import com.tld.takenotes.domain.events.ToastEvent;
 
 import javax.inject.Singleton;
 
@@ -29,4 +32,6 @@ public interface BusComponent {
     PublishSubject<OptionClicked> getOptionClicked();
 
     PublishSubject<TTSNote> getTTSNote();
+
+    PublishSubject<ToastEvent> getToast();
 }

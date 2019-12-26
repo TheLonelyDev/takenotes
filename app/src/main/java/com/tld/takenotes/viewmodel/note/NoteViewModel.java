@@ -21,6 +21,7 @@ import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.domain.events.NoteSearch;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
+import com.tld.takenotes.domain.events.ToastEvent;
 import com.tld.takenotes.domain.repository.NoteRepository;
 import com.tld.takenotes.domain.util.TextChanged;
 import com.tld.takenotes.model.Option;
@@ -71,8 +72,8 @@ public class NoteViewModel {
                                 Search();
                                 note.setDocumentId(documentReference.getId());
 
-                                listener.ShowToast(R.string.note_created);
-                                
+                                Toast(R.string.note_created);
+
                                 TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                             }
                         });
@@ -81,7 +82,7 @@ public class NoteViewModel {
 
                         Search();
 
-                        listener.ShowToast(R.string.note_created);
+                        Toast(R.string.note_created);
 
                         TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                     }
@@ -138,7 +139,7 @@ public class NoteViewModel {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Search();
 
-                                listener.ShowToast(R.string.note_deleted);
+                                Toast(R.string.note_deleted);
                             }
                         });
                     else {
@@ -146,7 +147,7 @@ public class NoteViewModel {
 
                         Search();
 
-                        listener.ShowToast(R.string.note_deleted);
+                        Toast(R.string.note_deleted);
                     }
                 }
             }
@@ -162,7 +163,7 @@ public class NoteViewModel {
                             public void onComplete(@NonNull Task<Void> task) {
                                 Search();
 
-                                listener.ShowToast(R.string.note_saved);
+                                Toast(R.string.note_saved);
                             }
                         });
                     else {
@@ -170,8 +171,17 @@ public class NoteViewModel {
 
                         Search();
 
-                        listener.ShowToast(R.string.note_saved);
+                        Toast(R.string.note_saved);
                     }
+                }
+            }
+        }));
+
+        disposable.add(TakeNotes.getBusComponent().getToast().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                if (o instanceof ToastEvent) {
+                    listener.ShowToast(((ToastEvent) o).getResourceId());
                 }
             }
         }));
@@ -181,6 +191,10 @@ public class NoteViewModel {
 
     protected void Search() {
         TakeNotes.getBusComponent().getNoteSearch().onNext(new NoteSearch(lastSearch));
+    }
+
+    protected void Toast(int resouceId) {
+        TakeNotes.getBusComponent().getToast().onNext(new ToastEvent(resouceId));
     }
 
     public void onDestroy() {
