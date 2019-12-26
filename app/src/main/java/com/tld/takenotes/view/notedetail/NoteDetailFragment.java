@@ -2,10 +2,10 @@ package com.tld.takenotes.view.notedetail;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +22,7 @@ import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.domain.api.bing.BingInterface;
 import com.tld.takenotes.domain.api.bing.Entity.BingImageResponse;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.domain.events.TTSNote;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel;
 
@@ -35,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener {
+public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener, TextToSpeech.OnInitListener {
     FragmentNoteDetailBinding binding;
 
     @Inject
@@ -65,6 +66,25 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
             getActivity().onBackPressed();
     }
 
+    private TextToSpeech tts;
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = tts.setLanguage(Locale.US);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(getContext(), getResources().getString(R.string.lang_not_supported), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void TTS(TTSNote ttsNote) {
+        tts.setLanguage(Locale.US);
+        tts.speak(ttsNote.getNote().getDetail(), TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,7 +109,17 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
             }
         });
 
+        tts = new TextToSpeech(getContext(), this);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        tts.stop();
+
+        viewModel.onDestroy();
     }
 }

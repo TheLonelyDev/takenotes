@@ -1,5 +1,7 @@
 package com.tld.takenotes.dagger2.note;
 
+import android.content.res.Resources;
+
 import com.tld.takenotes.dagger2.Fragment;
 import com.tld.takenotes.domain.repository.NoteRepository;
 import com.tld.takenotes.view.note.NoteAdapter;
@@ -18,8 +20,8 @@ public class NoteModule {
 
     @Fragment
     @Provides
-    NoteViewModel provideNoteViewModel(NoteRepository noteRepository) {
-        return new NoteViewModel(listener, noteRepository);
+    NoteViewModel provideNoteViewModel(NoteRepository noteRepository, Resources resources) {
+        return new NoteViewModel(listener, noteRepository, resources);
     }
 
     @Fragment

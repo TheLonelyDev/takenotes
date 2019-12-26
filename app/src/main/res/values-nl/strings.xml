@@ -12,4 +12,6 @@
     <string name="search_hint">Zoeken...</string>
     <string name="new_note">Nieuwe notitie</string>
     <string name="banner_image">Banner afbeelding</string>
+
+    <string name="lang_not_supported">Taal niet ondersteunt</string>
 </resources>

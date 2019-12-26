@@ -9,6 +9,8 @@ import com.tld.takenotes.model.Option;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+
 public class SplashscreenViewModel {
     private SplashscreenViewModel.SplashscreenListener listener;
     private CompositeDisposable disposable;
@@ -18,7 +20,7 @@ public class SplashscreenViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getOptionClicked().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getOptionClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof OptionClicked) {

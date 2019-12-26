@@ -10,35 +10,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.SuccessContinuation;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.R;
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.dagger2.note.DaggerNoteComponent;
 import com.tld.takenotes.dagger2.note.NoteModule;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
-import com.tld.takenotes.domain.events.DeleteCurrentNote;
-import com.tld.takenotes.domain.events.NoteClickEvent;
-import com.tld.takenotes.domain.events.NoteSearch;
-import com.tld.takenotes.domain.events.SaveCurrentNote;
-import com.tld.takenotes.domain.repository.NoteRepository;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
     FragmentNoteBinding binding;

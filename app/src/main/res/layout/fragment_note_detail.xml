@@ -121,11 +121,11 @@
                 android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::DeleteNote}"
                 android:src="@drawable/ic_delete"
-                fab:fab_label="@string/note_delete"
-                fab:fab_size="mini"
                 fab:fab_colorNormal="@color/accent"
                 fab:fab_colorPressed="@color/accent"
-                fab:fab_colorRipple="@color/secondary_text"  />
+                fab:fab_colorRipple="@color/secondary_text"
+                fab:fab_label="@string/note_delete"
+                fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/tts_fab"
@@ -135,11 +135,11 @@
                 android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::TTS}"
                 android:src="@drawable/ic_record_voice_over"
-                fab:fab_label="@string/note_tts"
-                fab:fab_size="mini"
                 fab:fab_colorNormal="@color/accent"
                 fab:fab_colorPressed="@color/accent"
-                fab:fab_colorRipple="@color/secondary_text" />
+                fab:fab_colorRipple="@color/secondary_text"
+                fab:fab_label="@string/note_tts"
+                fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/save_fab"
@@ -149,11 +149,11 @@
                 android:layout_margin="@dimen/small_dp"
                 android:onClick="@{viewModel::SaveNote}"
                 android:src="@drawable/ic_save"
-                fab:fab_label="@string/note_save"
-                fab:fab_size="mini"
                 fab:fab_colorNormal="@color/accent"
                 fab:fab_colorPressed="@color/accent"
-                fab:fab_colorRipple="@color/secondary_text" />
+                fab:fab_colorRipple="@color/secondary_text"
+                fab:fab_label="@string/note_save"
+                fab:fab_size="mini" />
         </com.github.clans.fab.FloatingActionMenu>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

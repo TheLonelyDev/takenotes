@@ -1,18 +1,12 @@
 package com.tld.takenotes.viewmodel.note;
 
-import android.content.Context;
-import android.os.AsyncTask;
+import android.content.res.Resources;
 import android.view.View;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.tld.takenotes.R;
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
@@ -35,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -46,22 +39,17 @@ import lombok.Setter;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteViewModel {
+    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<List<Note>>();
+    NoteRepository noteRepository;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String lastSearch = "";
     private NoteListener listener;
     private CompositeDisposable disposable;
-
-    NoteRepository noteRepository;
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    String lastSearch = "";
-
-    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<List<Note>>();
-
     @Getter
     @Setter
     private Option option;
 
-    public NoteViewModel(final NoteListener listener, NoteRepository noteRepository) {
+    public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
         this.listener = listener;
         this.noteRepository = noteRepository;
 
@@ -73,7 +61,7 @@ public class NoteViewModel {
                 if (o instanceof CreateNewNote) {
                     Note note = new Note();
                     note.setId(UUID.randomUUID().toString());
-                    note.setName("New note");
+                    note.setName(resources.getText(R.string.new_note).toString());
                     note.setDetail("");
 
                     if (option == Option.CLOUD) {
@@ -85,8 +73,7 @@ public class NoteViewModel {
                                 TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                             }
                         });
-                    }
-                    else {
+                    } else {
                         noteRepository.newNote(note);
 
                         Search();
@@ -126,7 +113,8 @@ public class NoteViewModel {
                         });
                     else
                         notes.addSource(noteRepository.searchNotes(String.format("%%%s%%", lastSearch)), new Observer<List<Note>>() {
-                            @Override public void onChanged(@Nullable List<Note> value) {
+                            @Override
+                            public void onChanged(@Nullable List<Note> value) {
                                 notes.setValue(value);
                             }
                         });

@@ -6,6 +6,7 @@ import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.domain.events.NoteSearch;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
+import com.tld.takenotes.domain.events.TTSNote;
 
 import javax.inject.Singleton;
 
@@ -26,4 +27,6 @@ public interface BusComponent {
     PublishSubject<SaveCurrentNote> getSaveCurrentNote();
 
     PublishSubject<OptionClicked> getOptionClicked();
+
+    PublishSubject<TTSNote> getTTSNote();
 }
