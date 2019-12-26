@@ -70,6 +70,9 @@ public class NoteViewModel {
                             public void onSuccess(DocumentReference documentReference) {
                                 Search();
                                 note.setDocumentId(documentReference.getId());
+
+                                listener.ShowToast(R.string.note_created);
+                                
                                 TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                             }
                         });
@@ -77,6 +80,9 @@ public class NoteViewModel {
                         noteRepository.newNote(note);
 
                         Search();
+
+                        listener.ShowToast(R.string.note_created);
+
                         TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                     }
                 }
@@ -131,12 +137,16 @@ public class NoteViewModel {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Search();
+
+                                listener.ShowToast(R.string.note_deleted);
                             }
                         });
                     else {
                         noteRepository.deleteNote(((DeleteCurrentNote) o).getNote());
 
                         Search();
+
+                        listener.ShowToast(R.string.note_deleted);
                     }
                 }
             }
@@ -151,12 +161,16 @@ public class NoteViewModel {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Search();
+
+                                listener.ShowToast(R.string.note_saved);
                             }
                         });
                     else {
                         noteRepository.updateNote(((SaveCurrentNote) o).getNote());
 
                         Search();
+
+                        listener.ShowToast(R.string.note_saved);
                     }
                 }
             }
@@ -189,5 +203,6 @@ public class NoteViewModel {
     public interface NoteListener {
 
         void OnLoaded(List<Note> notes);
+        void ShowToast(int resourceId);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,14 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void OnLoaded(List<Note> notes) {
         adapter.setNotes(notes);
+    }
+
+
+    @Override
+    public void ShowToast(int resourceId)
+    {
+        Toast toast = Toast.makeText(getContext(), getResources().getString(resourceId), Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Nullable

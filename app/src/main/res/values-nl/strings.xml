@@ -14,4 +14,7 @@
     <string name="banner_image">Banner afbeelding</string>
 
     <string name="lang_not_supported">Taal niet ondersteunt</string>
+    <string name="note_created">Notitie aangemaakt</string>
+    <string name="note_deleted">Notitie verwijdert</string>
+    <string name="note_saved">Notitie opgeslagen</string>
 </resources>
