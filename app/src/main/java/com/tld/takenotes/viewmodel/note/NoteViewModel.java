@@ -1,17 +1,35 @@
 package com.tld.takenotes.viewmodel.note;
 
+import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.domain.events.NoteSearch;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
+import com.tld.takenotes.domain.repository.NoteRepository;
+import com.tld.takenotes.domain.util.TextChanged;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
-import com.tld.takenotes.domain.util.TextChanged;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -22,12 +40,21 @@ public class NoteViewModel {
     private NoteListener listener;
     private CompositeDisposable disposable;
 
+    NoteRepository noteRepository;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    String lastSearch = "";
+
+    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<List<Note>>();
+
     @Getter
     @Setter
     private Option option;
 
-    public NoteViewModel(final NoteListener listener) {
+    public NoteViewModel(final NoteListener listener, NoteRepository noteRepository) {
         this.listener = listener;
+        this.noteRepository = noteRepository;
 
         disposable = new CompositeDisposable();
 
@@ -35,7 +62,18 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof CreateNewNote) {
-                    listener.CreateNewNote();
+                    Note note = new Note();
+                    note.setId(UUID.randomUUID().toString());
+                    note.setName("New note");
+                    note.setDetail("");
+
+                    if (option == Option.CLOUD)
+                        db.collection("notes").add(note);
+                    else
+                        noteRepository.newNote(note);
+
+                    Search();
+                    TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
                 }
             }
         }));
@@ -44,7 +82,36 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
-                    listener.Search((NoteSearch) o);
+                    lastSearch = ((NoteSearch) o).getKeyword();
+
+                    if (option == Option.CLOUD)
+                        db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    List<Note> result = task.getResult().toObjects(Note.class);
+
+                                    if (!lastSearch.isEmpty()) {
+                                        List<Note> toRemove = new ArrayList<Note>();
+
+                                        for (Note note : result) {
+                                            if (!(note.getName().contains(lastSearch) || note.getDetail().contains(lastSearch)))
+                                                toRemove.add(note);
+                                        }
+
+                                        result.removeAll(toRemove);
+                                    }
+
+                                    notes.postValue(result);
+                                }
+                            }
+                        });
+                    else
+                        notes.addSource(noteRepository.searchNotes(String.format("%%%s%%", lastSearch)), new Observer<List<Note>>() {
+                            @Override public void onChanged(@Nullable List<Note> value) {
+                                notes.setValue(value);
+                            }
+                        });
                 }
             }
         }));
@@ -53,7 +120,13 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
-                    listener.DeleteNote((DeleteCurrentNote) o);
+                    if (option == Option.CLOUD)
+                        db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete();
+                    else
+                        noteRepository.deleteNote(((DeleteCurrentNote) o).getNote());
+
+                    Search();
+                    //getActivity().finishActivity(1);
                 }
             }
         }));
@@ -62,10 +135,19 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof SaveCurrentNote) {
-                    listener.SaveNote((SaveCurrentNote) o);
+                    if (option == Option.CLOUD)
+                        db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote());
+                    else
+                        noteRepository.updateNote(((SaveCurrentNote) o).getNote());
+
+                    Search();
                 }
             }
         }));
+    }
+
+    protected void Search() {
+        TakeNotes.getBusComponent().getNoteSearch().onNext(new NoteSearch(lastSearch));
     }
 
     public void onDestroy() {
@@ -86,14 +168,7 @@ public class NoteViewModel {
     }
 
     public interface NoteListener {
-        void CreateNewNote();
-
-        void DeleteNote(DeleteCurrentNote deleteCurrentNote);
-
-        void SaveNote(SaveCurrentNote saveCurrentNote);
 
         void OnLoaded(List<Note> notes);
-
-        void Search(NoteSearch noteSearch);
     }
 }

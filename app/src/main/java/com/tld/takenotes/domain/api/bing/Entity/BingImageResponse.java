@@ -1,7 +1,7 @@
-
 package com.tld.takenotes.domain.api.bing.Entity;
 
 import java.util.List;
+
 import lombok.Data;
 
 @Data

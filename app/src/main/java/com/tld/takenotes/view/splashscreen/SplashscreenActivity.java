@@ -5,13 +5,11 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
-import com.tld.takenotes.databinding.ActivitySplashscreenBinding;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.dagger2.splashscreen.DaggerSplashscreenComponent;
 import com.tld.takenotes.dagger2.splashscreen.SplashscreenModule;
-import com.tld.takenotes.domain.api.bing.BingHandler;
-import com.tld.takenotes.domain.api.bing.BingInterface;
+import com.tld.takenotes.databinding.ActivitySplashscreenBinding;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.view.main.MainActivity;
 import com.tld.takenotes.viewmodel.splashscreen.SplashscreenViewModel;

@@ -4,10 +4,10 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.tld.takenotes.model.dao.NoteDao;
 import com.tld.takenotes.domain.repository.NoteDataSource;
 import com.tld.takenotes.domain.repository.NoteRepository;
 import com.tld.takenotes.domain.repository.RoomDatabase;
+import com.tld.takenotes.model.dao.NoteDao;
 
 import javax.inject.Singleton;
 
@@ -20,7 +20,7 @@ public class RoomModule {
     private RoomDatabase roomDatabase;
 
     public RoomModule(Application application) {
-        roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "demo-db").allowMainThreadQueries().build();
+        roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "demo-db").build();
     }
 
     @Singleton

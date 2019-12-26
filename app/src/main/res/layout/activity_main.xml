@@ -25,11 +25,11 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
-            android:background="@color/primary_light"
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/app_bar" />
+            android:layout_below="@+id/app_bar"
+            android:background="@color/primary_light" />
 
     </RelativeLayout>
 </layout>

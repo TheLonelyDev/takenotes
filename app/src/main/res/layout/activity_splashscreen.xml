@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -20,11 +21,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@color/primary_dark"
-            android:textColor="@color/divider"
             android:onClick="@{viewModel::LocalClicked}"
             android:paddingLeft="@dimen/small_dp"
             android:paddingRight="@dimen/small_dp"
-            android:text="@string/local_storage_button" />
+            android:text="@string/local_storage_button"
+            android:textColor="@color/divider" />
 
         <Button
             android:id="@+id/button_cloud"
@@ -32,9 +33,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:background="@color/primary_text"
-            android:textColor="@color/primary_light"
             android:onClick="@{viewModel::CloudClicked}"
-            android:text="@string/cloud_storage_button" />
+            android:text="@string/cloud_storage_button"
+            android:textColor="@color/primary_light" />
     </LinearLayout>
 
 </layout>

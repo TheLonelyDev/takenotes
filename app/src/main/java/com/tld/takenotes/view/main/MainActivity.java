@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
-import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
-import com.tld.takenotes.databinding.ActivityMainBinding;
+import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.dagger2.main.DaggerMainComponent;
 import com.tld.takenotes.dagger2.main.MainModule;
+import com.tld.takenotes.databinding.ActivityMainBinding;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.view.note.NoteFragment;

@@ -1,4 +1,3 @@
-
 package com.tld.takenotes.domain.api.bing.Entity;
 
 import lombok.Data;

@@ -1,11 +1,11 @@
 package com.tld.takenotes.view.notedetail;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,19 +13,21 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.squareup.picasso.Picasso;
-import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.R;
+import com.tld.takenotes.TakeNotes;
+import com.tld.takenotes.dagger2.notedetail.DaggerNoteDetailComponent;
+import com.tld.takenotes.dagger2.notedetail.NoteDetailModule;
 import com.tld.takenotes.databinding.FragmentNoteDetailBinding;
 import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.domain.api.bing.BingInterface;
 import com.tld.takenotes.domain.api.bing.Entity.BingImageResponse;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
-import com.tld.takenotes.dagger2.notedetail.DaggerNoteDetailComponent;
-import com.tld.takenotes.dagger2.notedetail.NoteDetailModule;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel;
 
 import org.parceler.Parcels;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -50,11 +52,6 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         fragment.setArguments(arguments);
 
         return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -86,7 +83,6 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
 
             }
         });
-
 
 
         return binding.getRoot();
