@@ -56,8 +56,13 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
 
     @Override
     public void DeleteNote(DeleteCurrentNote deleteCurrentNote) {
-        if (getActivity() != null)
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+        if (getActivity() == null)
+            return;
+
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+
+        if (getActivity().getClass().getName() == NoteDetailActivity.class.getName())
+            getActivity().onBackPressed();
     }
 
     @Nullable

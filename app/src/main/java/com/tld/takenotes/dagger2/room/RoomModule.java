@@ -37,7 +37,7 @@ public class RoomModule {
 
     @Singleton
     @Provides
-    NoteRepository noteRepository(NoteDao noteDao) {
+    NoteRepository providesNoteRepository(NoteDao noteDao) {
         return new NoteDataSource(noteDao);
     }
 

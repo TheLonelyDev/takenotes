@@ -1,17 +1,23 @@
 package com.tld.takenotes.viewmodel.note;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.View;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.TakeNotes;
@@ -33,8 +39,11 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import lombok.Getter;
 import lombok.Setter;
+
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteViewModel {
     private NoteListener listener;
@@ -58,7 +67,7 @@ public class NoteViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getCreateNewNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getCreateNewNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof CreateNewNote) {
@@ -67,18 +76,27 @@ public class NoteViewModel {
                     note.setName("New note");
                     note.setDetail("");
 
-                    if (option == Option.CLOUD)
-                        db.collection("notes").add(note);
-                    else
+                    if (option == Option.CLOUD) {
+                        db.collection("notes").add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Search();
+                                note.setDocumentId(documentReference.getId());
+                                TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+                            }
+                        });
+                    }
+                    else {
                         noteRepository.newNote(note);
 
-                    Search();
-                    TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+                        Search();
+                        TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+                    }
                 }
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getNoteSearch().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getNoteSearch().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
@@ -116,34 +134,47 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
                     if (option == Option.CLOUD)
-                        db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete();
-                    else
+                        db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Search();
+                            }
+                        });
+                    else {
                         noteRepository.deleteNote(((DeleteCurrentNote) o).getNote());
 
-                    Search();
-                    //getActivity().finishActivity(1);
+                        Search();
+                    }
                 }
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof SaveCurrentNote) {
                     if (option == Option.CLOUD)
-                        db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote());
-                    else
+                        db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Search();
+                            }
+                        });
+                    else {
                         noteRepository.updateNote(((SaveCurrentNote) o).getNote());
 
-                    Search();
+                        Search();
+                    }
                 }
             }
         }));
+
+        Search();
     }
 
     protected void Search() {

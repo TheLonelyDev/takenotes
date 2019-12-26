@@ -11,16 +11,14 @@ import dagger.Provides;
 @Module
 public class NoteModule {
     NoteViewModel.NoteListener listener;
-    NoteRepository noteRepository;
 
-    public NoteModule(NoteViewModel.NoteListener listener, NoteRepository noteRepository) {
+    public NoteModule(NoteViewModel.NoteListener listener) {
         this.listener = listener;
-        this.noteRepository = noteRepository;
     }
 
     @Fragment
     @Provides
-    NoteViewModel provideNoteViewModel() {
+    NoteViewModel provideNoteViewModel(NoteRepository noteRepository) {
         return new NoteViewModel(listener, noteRepository);
     }
 

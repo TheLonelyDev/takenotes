@@ -37,6 +37,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
     FragmentNoteBinding binding;
 
@@ -45,9 +48,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
     @Inject
     NoteAdapter adapter;
-
-    @Inject
-    NoteRepository noteRepository;
 
     public static NoteFragment newFragment(Option option) {
         NoteFragment fragment = new NoteFragment();
@@ -71,7 +71,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
         // Inject
-        DaggerNoteComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this, noteRepository)).build().inject(this);
+        DaggerNoteComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);

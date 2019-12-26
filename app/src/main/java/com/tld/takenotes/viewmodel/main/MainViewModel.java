@@ -10,6 +10,8 @@ import io.reactivex.functions.Consumer;
 import lombok.Getter;
 import lombok.Setter;
 
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+
 
 public class MainViewModel {
     @Getter
@@ -29,7 +31,7 @@ public class MainViewModel {
 
         disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().subscribe(new Consumer<Object>() {
+        disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteClickEvent) {
