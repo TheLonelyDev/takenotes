@@ -16,7 +16,6 @@ import io.reactivex.functions.Consumer;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteDetailViewModel {
-
     public MutableLiveData<Note> note = new MutableLiveData<>();
     private NoteDetailListener listener;
     private CompositeDisposable disposable;
@@ -24,9 +23,9 @@ public class NoteDetailViewModel {
     public NoteDetailViewModel(final NoteDetailListener listener) {
         this.listener = listener;
 
-        disposable = new CompositeDisposable();
+        this.disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
@@ -35,7 +34,7 @@ public class NoteDetailViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getTTSNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getTTSNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof TTSNote) {
@@ -57,12 +56,13 @@ public class NoteDetailViewModel {
         TakeNotes.getBusComponent().getTTSNote().onNext(new TTSNote(note.getValue()));
     }
 
-    public interface NoteDetailListener {
-        void DeleteNote(DeleteCurrentNote deleteCurrentNote);
-        void TTS(TTSNote ttsNote);
+    public void onDestroy() {
+        this.disposable.clear();
     }
 
-    public void onDestroy() {
-        disposable.clear();
+    public interface NoteDetailListener {
+        void DeleteNote(DeleteCurrentNote deleteCurrentNote);
+
+        void TTS(TTSNote ttsNote);
     }
 }

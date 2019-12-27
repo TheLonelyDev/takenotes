@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public class OptionClicked {
-    @Getter
     @Setter
+    @Getter
     private Option option;
 }

@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 public class SplashscreenActivity extends AppCompatActivity implements SplashscreenViewModel.SplashscreenListener {
     @Inject
-    SplashscreenViewModel viewModel;
+    protected SplashscreenViewModel viewModel;
     private ActivitySplashscreenBinding binding;
 
     @Override

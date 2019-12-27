@@ -54,27 +54,20 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        // Tell dagger to set the main module & inject everything
-        // tldr; injection
         DaggerMainComponent.builder().appComponent(((TakeNotes) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
 
         Option option = Option.valueOf(getIntent().getExtras().getString("key_option"));
         viewModel.setOption(option);
 
-        // Init views
-        // Do two pane detection by finding a specific view; grabbed from the MasterDetailFlow demo
-        viewModel.setTwoPane(findViewById(R.id.detail_container) != null);
 
-        // Set the SavedInstance
-        // We use this so to switch between the two view types (fragment will be added to the container automatically)
-        // http://developer.android.com/guide/components/fragments.html
+        viewModel.setTwoPane(findViewById(R.id.detail_container) != null);
 
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.main_container, NoteFragment.newFragment(viewModel.getOption())).commitAllowingStateLoss();
 
         binding.setViewModel(viewModel);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -89,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         super.onDestroy();
         viewModel.onDestroy();
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

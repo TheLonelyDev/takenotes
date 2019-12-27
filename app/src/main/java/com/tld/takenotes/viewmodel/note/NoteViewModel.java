@@ -6,11 +6,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.transition.Visibility;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,15 +42,14 @@ import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteViewModel {
     public MediatorLiveData<List<Note>> notes = new MediatorLiveData<List<Note>>();
-    NoteRepository noteRepository;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String lastSearch = "";
+    private NoteRepository noteRepository;
     private NoteListener listener;
+    private FirebaseFirestore db;
+    private String lastSearch;
     private CompositeDisposable disposable;
     @Getter
     @Setter
     private Option option;
-
     @Getter
     private ObservableBoolean loading;
 
@@ -61,12 +57,14 @@ public class NoteViewModel {
         this.listener = listener;
         this.noteRepository = noteRepository;
         this.loading = new ObservableBoolean();
+        this.lastSearch = "";
+        this.db = FirebaseFirestore.getInstance();
 
         this.loading.set(true);
 
-        disposable = new CompositeDisposable();
+        this.disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getCreateNewNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getCreateNewNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof CreateNewNote) {
@@ -100,7 +98,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getNoteSearch().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getNoteSearch().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
@@ -142,7 +140,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof DeleteCurrentNote) {
@@ -166,7 +164,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof SaveCurrentNote) {
@@ -190,7 +188,7 @@ public class NoteViewModel {
             }
         }));
 
-        disposable.add(TakeNotes.getBusComponent().getToast().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getToast().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof ToastEvent) {
@@ -206,8 +204,8 @@ public class NoteViewModel {
         TakeNotes.getBusComponent().getNoteSearch().onNext(new NoteSearch(lastSearch));
     }
 
-    protected void Toast(int resouceId) {
-        TakeNotes.getBusComponent().getToast().onNext(new ToastEvent(resouceId));
+    protected void Toast(int resourceId) {
+        TakeNotes.getBusComponent().getToast().onNext(new ToastEvent(resourceId));
     }
 
     public void onDestroy() {
@@ -230,6 +228,7 @@ public class NoteViewModel {
     public interface NoteListener {
 
         void OnLoaded(List<Note> notes);
+
         void ShowToast(int resourceId);
     }
 }

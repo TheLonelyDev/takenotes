@@ -14,6 +14,9 @@ import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 
 public class MainViewModel {
+    private MainListener listener;
+    private CompositeDisposable disposable;
+
     @Getter
     @Setter
     private boolean isTwoPane = false;
@@ -22,16 +25,12 @@ public class MainViewModel {
     @Setter
     private Option option;
 
-    private MainListener listener;
-    private CompositeDisposable disposable;
-
-
     public MainViewModel(final MainListener listener) {
         this.listener = listener;
 
-        disposable = new CompositeDisposable();
+        this.disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteClickEvent) {
@@ -42,7 +41,7 @@ public class MainViewModel {
     }
 
     public void onDestroy() {
-        disposable.clear();
+        this.disposable.clear();
     }
 
     public interface MainListener {

@@ -37,13 +37,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener, TextToSpeech.OnInitListener {
-    FragmentNoteDetailBinding binding;
-
     @Inject
-    NoteDetailViewModel viewModel;
-
+    protected NoteDetailViewModel viewModel;
     @Inject
-    BingInterface bingInterface;
+    protected BingInterface bingInterface;
+    private FragmentNoteDetailBinding binding;
+    private TextToSpeech tts;
 
     public static NoteDetailFragment newFragment(Note note) {
         NoteDetailFragment fragment = new NoteDetailFragment();
@@ -65,8 +64,6 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         if (getActivity().getClass().getName() == NoteDetailActivity.class.getName())
             getActivity().onBackPressed();
     }
-
-    private TextToSpeech tts;
 
     @Override
     public void onInit(int status) {
@@ -90,11 +87,10 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail, container, false);
 
-        // Inject
         DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        viewModel.note.setValue((Note) Parcels.unwrap(getArguments().getParcelable("key_note")));
+        viewModel.note.setValue(Parcels.unwrap(getArguments().getParcelable("key_note")));
 
         bingInterface.getImage().enqueue(new Callback<BingImageResponse>() {
             @Override

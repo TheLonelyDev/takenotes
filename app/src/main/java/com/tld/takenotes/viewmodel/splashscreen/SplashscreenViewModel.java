@@ -18,9 +18,9 @@ public class SplashscreenViewModel {
     public SplashscreenViewModel(final SplashscreenViewModel.SplashscreenListener listener) {
         this.listener = listener;
 
-        disposable = new CompositeDisposable();
+        this.disposable = new CompositeDisposable();
 
-        disposable.add(TakeNotes.getBusComponent().getOptionClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
+        this.disposable.add(TakeNotes.getBusComponent().getOptionClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof OptionClicked) {
@@ -31,7 +31,7 @@ public class SplashscreenViewModel {
     }
 
     public void onDestroy() {
-        disposable.clear();
+        this.disposable.clear();
     }
 
     public void LocalClicked(View view) {

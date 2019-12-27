@@ -11,9 +11,6 @@ import com.google.firebase.firestore.DocumentId;
 
 import org.parceler.Parcel;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
 @Parcel(
         value = Parcel.Serialization.BEAN,
@@ -26,8 +23,6 @@ public class Note extends BaseObservable {
 
     public String detail;
 
-    @Getter
-    @Setter
     @DocumentId
     @Ignore
     public String documentId;
@@ -60,5 +55,13 @@ public class Note extends BaseObservable {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getDocumentId() {
+        return this.documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

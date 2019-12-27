@@ -26,15 +26,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
-    FragmentNoteBinding binding;
-
     @Inject
-    NoteViewModel viewModel;
-
+    protected NoteViewModel viewModel;
     @Inject
-    NoteAdapter adapter;
-
-    Toast toast;
+    protected NoteAdapter adapter;
+    private FragmentNoteBinding binding;
+    private Toast toast;
 
     public static NoteFragment newFragment(Option option) {
         NoteFragment fragment = new NoteFragment();
@@ -54,8 +51,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
 
     @Override
-    public void ShowToast(int resourceId)
-    {
+    public void ShowToast(int resourceId) {
         toast.setText(getResources().getString(resourceId));
         toast.show();
     }
@@ -65,7 +61,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
-        // Inject
         DaggerNoteComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
@@ -74,7 +69,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         Option option = Option.valueOf(getArguments().getString("key_option"));
         viewModel.setOption(option);
 
-        toast = Toast.makeText(getActivity().getApplicationContext(), "" , Toast.LENGTH_SHORT);
+        toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
 
         return binding.getRoot();
     }

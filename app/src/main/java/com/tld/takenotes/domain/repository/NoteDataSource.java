@@ -33,11 +33,6 @@ public class NoteDataSource implements NoteRepository {
     }
 
     @Override
-    public LiveData<List<Note>> getAll() {
-        return noteDao.getAll();
-    }
-
-    @Override
     public LiveData<List<Note>> searchNotes(String keyword) {
         return noteDao.searchNotes(keyword);
     }

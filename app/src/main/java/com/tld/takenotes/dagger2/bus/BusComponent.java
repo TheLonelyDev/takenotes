@@ -1,7 +1,5 @@
 package com.tld.takenotes.dagger2.bus;
 
-import android.widget.Toast;
-
 import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.NoteClickEvent;

@@ -2,9 +2,7 @@ package com.tld.takenotes.dagger2.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 

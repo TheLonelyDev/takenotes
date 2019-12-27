@@ -23,9 +23,6 @@ public interface NoteDao {
     @Delete
     void deleteNote(Note note);
 
-    @Query("SELECT * FROM Note")
-    LiveData<List<Note>> getAll();
-
     @Query("SELECT * FROM Note WHERE name LIKE :keyword OR detail LIKE :keyword")
     LiveData<List<Note>> searchNotes(String keyword);
 }
