@@ -13,6 +13,8 @@ public interface NoteRepository {
 
     void deleteNote(Note note);
 
+    Note getNote(String id);
+
     LiveData<List<Note>> searchNotes(String keyword);
 }
 

@@ -20,7 +20,7 @@ public class RoomModule {
     private RoomDatabase roomDatabase;
 
     public RoomModule(Application application) {
-        roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "demo-db").build();
+        roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "takenotes").build();
     }
 
     @Singleton
