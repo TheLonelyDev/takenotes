@@ -60,8 +60,9 @@ public class NoteViewModel {
     public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
         this.listener = listener;
         this.noteRepository = noteRepository;
+        this.loading = new ObservableBoolean();
 
-        loading.set(true);
+        this.loading.set(true);
 
         disposable = new CompositeDisposable();
 
@@ -104,7 +105,7 @@ public class NoteViewModel {
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
                     loading.set(true);
-                    lastSearch = ((NoteSearch) o).getKeyword();
+                    lastSearch = ((NoteSearch) o).getKeyword().toLowerCase();
 
                     if (option == Option.CLOUD)
                         db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -117,7 +118,7 @@ public class NoteViewModel {
                                         List<Note> toRemove = new ArrayList<Note>();
 
                                         for (Note note : result) {
-                                            if (!(note.getName().contains(lastSearch) || note.getDetail().contains(lastSearch)))
+                                            if (!(note.getName().toLowerCase().contains(lastSearch) || note.getDetail().toLowerCase().contains(lastSearch)))
                                                 toRemove.add(note);
                                         }
 
