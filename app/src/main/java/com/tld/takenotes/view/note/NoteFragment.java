@@ -17,6 +17,7 @@ import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.dagger2.note.DaggerNoteComponent;
 import com.tld.takenotes.dagger2.note.NoteModule;
 import com.tld.takenotes.databinding.FragmentNoteBinding;
+import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
@@ -37,7 +38,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         NoteFragment fragment = new NoteFragment();
         Bundle arguments = new Bundle();
 
-        arguments.putString("key_option", option.name());
+        arguments.putString(Constants.NOTE_PARCEL, option.name());
 
         fragment.setArguments(arguments);
 
@@ -66,7 +67,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);
 
-        Option option = Option.valueOf(getArguments().getString("key_option"));
+        Option option = Option.valueOf(getArguments().getString(Constants.NOTE_PARCEL));
         viewModel.setOption(option);
 
         toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
