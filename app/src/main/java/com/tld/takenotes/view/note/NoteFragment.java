@@ -34,6 +34,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Inject
     NoteAdapter adapter;
 
+    Toast toast;
+
     public static NoteFragment newFragment(Option option) {
         NoteFragment fragment = new NoteFragment();
         Bundle arguments = new Bundle();
@@ -54,7 +56,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void ShowToast(int resourceId)
     {
-        Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(resourceId), Toast.LENGTH_SHORT);
+        toast.setText(getResources().getString(resourceId));
         toast.show();
     }
 
@@ -71,6 +73,8 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
 
         Option option = Option.valueOf(getArguments().getString("key_option"));
         viewModel.setOption(option);
+
+        toast = Toast.makeText(getActivity().getApplicationContext(), "" , Toast.LENGTH_SHORT);
 
         return binding.getRoot();
     }
@@ -90,6 +94,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         viewModel.onDestroy();
     }
 }

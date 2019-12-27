@@ -120,7 +120,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
 
         tts.stop();
         tts.shutdown();
-        
+
         viewModel.onDestroy();
     }
 }

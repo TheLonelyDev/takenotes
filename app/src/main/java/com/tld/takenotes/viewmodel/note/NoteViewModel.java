@@ -5,8 +5,12 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.transition.Visibility;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,9 +54,14 @@ public class NoteViewModel {
     @Setter
     private Option option;
 
+    @Getter
+    private ObservableBoolean loading;
+
     public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
         this.listener = listener;
         this.noteRepository = noteRepository;
+
+        loading.set(true);
 
         disposable = new CompositeDisposable();
 
@@ -94,6 +103,7 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) throws Exception {
                 if (o instanceof NoteSearch) {
+                    loading.set(true);
                     lastSearch = ((NoteSearch) o).getKeyword();
 
                     if (option == Option.CLOUD)
@@ -115,6 +125,7 @@ public class NoteViewModel {
                                     }
 
                                     notes.postValue(result);
+                                    loading.set(false);
                                 }
                             }
                         });
@@ -123,6 +134,7 @@ public class NoteViewModel {
                             @Override
                             public void onChanged(@Nullable List<Note> value) {
                                 notes.setValue(value);
+                                loading.set(false);
                             }
                         });
                 }
