@@ -14,6 +14,7 @@ import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.dagger2.main.DaggerMainComponent;
 import com.tld.takenotes.dagger2.main.MainModule;
 import com.tld.takenotes.databinding.ActivityMainBinding;
+import com.tld.takenotes.domain.Constants;
 import com.tld.takenotes.model.Option;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.view.note.NoteFragment;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
         Intent intent = new Intent(context, MainActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putString("key_option", option.name());
+        bundle.putString(Constants.NOTEDETAIL_PARCEL, option.name());
 
         intent.putExtras(bundle);
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     @Override
     public void onNoteClicked(Note note) {
         if (!viewModel.isTwoPane())
-            startActivityForResult(NoteDetailActivity.newIntent(this, note), 1);
+            startActivity(NoteDetailActivity.newIntent(this, note));
         else if (!isFinishing())
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_container, NoteDetailFragment.newFragment(note))
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
 
         DaggerMainComponent.builder().appComponent(((TakeNotes) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
 
-        Option option = Option.valueOf(getIntent().getExtras().getString("key_option"));
+        Option option = Option.valueOf(getIntent().getExtras().getString(Constants.NOTEDETAIL_PARCEL));
         viewModel.setOption(option);
 
 
