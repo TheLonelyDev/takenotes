@@ -21,7 +21,6 @@ public class NoteDetailActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         bundle.putParcelable(Constants.NOTEDETAIL_PARCEL, Parcels.wrap(note));
-
         intent.putExtras(bundle);
 
         return intent;

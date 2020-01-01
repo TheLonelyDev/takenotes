@@ -83,8 +83,10 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        viewModel.note.setValue(Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_PARCEL)));
+        Note note = (Note) Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_PARCEL));
+        viewModel.note.setValue(note);
 
+        getChildFragmentManager().beginTransaction().replace(R.id.text_count_frame, NoteDetailTextCount.newFragment(note)).commitAllowingStateLoss();
 
         Picasso.get().load(String.format("%s%s", Constants.BING_API, ((TakeNotes) (getActivity().getApplication())).getBingImage().getValue())).placeholder(R.drawable.bg).fit().into(binding.noteBanner);
         ((TakeNotes) (getActivity().getApplication())).getBingImage().observe(this, new Observer<String>() {

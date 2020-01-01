@@ -31,7 +31,6 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
     private ActivitySplashscreenBinding binding;
 
-
     @Override
     public void onOptionClicked(Option option) {
         startActivity(MainActivity.newIntent(this, option));

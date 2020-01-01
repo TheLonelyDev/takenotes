@@ -32,8 +32,10 @@ You might require the [project Lombok](https://projectlombok.org/) [plugin](http
 - 2 activities that exchange data using Intents
 	- SplashscreenActivity -> MainActivity for storage provider choice
 	- MainActivity -> NoteFragment to pass along a Note object
-- Usage of fragments that communicate with 1 activity
+- Usage of fragments that communicate within 1 activity
 	- NoteFragment/NoteListViewModel-> MainActivity for onNoteClicked handling
+	OR
+	- NoteDetailFragment -> NoteDetailTextCount for text size/count updating
 - 'Complex' layout
 	- Usage of a master detail flow layout depending on screen width & orientation
 - Usage of threading to invoke web resources/and or usage of 1 service

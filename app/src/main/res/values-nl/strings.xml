@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">TakeNotes</string>
 
-    <string name="name">%1$s</string>
-    <string name="detail">%1$s</string>
     <string name="note_save">Sla notitie op</string>
     <string name="note_delete">Verwijder notitie</string>
     <string name="note_tts">Text to speech</string>
@@ -12,6 +10,8 @@
     <string name="search_hint">Zoeken...</string>
     <string name="new_note">Nieuwe notitie</string>
     <string name="banner_image">Banner afbeelding</string>
+
+    <string name="text_count">Tekst lengte: %d</string>
 
     <string name="lang_not_supported">Taal niet ondersteunt</string>
     <string name="note_created">Notitie aangemaakt</string>

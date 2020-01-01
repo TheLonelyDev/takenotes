@@ -39,7 +39,6 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         Bundle arguments = new Bundle();
 
         arguments.putString(Constants.NOTE_PARCEL, option.name());
-
         fragment.setArguments(arguments);
 
         return fragment;

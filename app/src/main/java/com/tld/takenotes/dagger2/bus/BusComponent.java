@@ -4,6 +4,7 @@ import com.tld.takenotes.domain.events.CreateNewNote;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
 import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.domain.events.NoteSearch;
+import com.tld.takenotes.domain.events.NoteTyped;
 import com.tld.takenotes.domain.events.OptionClicked;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.domain.events.TTSNote;
@@ -32,4 +33,6 @@ public interface BusComponent {
     PublishSubject<TTSNote> getTTSNote();
 
     PublishSubject<ToastEvent> getToast();
+
+    PublishSubject<NoteTyped> getNoteTyped();
 }

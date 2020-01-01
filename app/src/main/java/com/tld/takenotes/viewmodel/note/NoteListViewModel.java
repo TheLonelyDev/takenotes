@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.databinding.ObservableField;
 
-import com.tld.takenotes.R;
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.NoteClickEvent;
 import com.tld.takenotes.model.entity.Note;
@@ -25,8 +24,8 @@ public class NoteListViewModel {
     public NoteListViewModel(Context context, Note note) {
         this.note = note;
 
-        this.name = new ObservableField<>(context.getString(R.string.name, note.getName()));
-        this.detail = new ObservableField<>(context.getString(R.string.detail, note.getDetail()));
+        this.name = new ObservableField<>(note.getName());
+        this.detail = new ObservableField<>(note.getDetail());
     }
 
     public void onNoteClicked(View view) {

@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tld.takenotes.TakeNotes;
 import com.tld.takenotes.domain.events.DeleteCurrentNote;
+import com.tld.takenotes.domain.events.NoteTyped;
 import com.tld.takenotes.domain.events.SaveCurrentNote;
 import com.tld.takenotes.domain.events.TTSNote;
+import com.tld.takenotes.domain.util.TextChanged;
 import com.tld.takenotes.model.entity.Note;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -54,6 +56,15 @@ public class NoteDetailViewModel {
 
     public void TTS(View view) {
         TakeNotes.getBusComponent().getTTSNote().onNext(new TTSNote(note.getValue()));
+    }
+
+    public TextChanged onTextChanged() {
+        return new TextChanged() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                TakeNotes.getBusComponent().getNoteTyped().onNext(new NoteTyped(s.toString().trim()));
+            }
+        };
     }
 
     public void onDestroy() {

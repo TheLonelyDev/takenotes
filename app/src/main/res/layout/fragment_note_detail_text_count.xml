@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tld.takenotes.viewmodel.notedetail.NoteDetailTextCountViewModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/note_text_count"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/normal_dp"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/normal_dp"
+        android:scrollbars="horizontal"
+        android:singleLine="true"
+        android:text="@{viewModel.textCount}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textIsSelectable="true" />
+</layout>
