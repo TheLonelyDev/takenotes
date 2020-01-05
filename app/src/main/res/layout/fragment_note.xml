@@ -42,7 +42,8 @@
                 android:background="@null"
                 android:hint="@string/search_hint"
                 android:inputType="text"
-                android:padding="@dimen/normal_dp" />
+                android:padding="@dimen/normal_dp"
+                android:importantForAutofill="no" />
         </RelativeLayout>
 
         <ProgressBar

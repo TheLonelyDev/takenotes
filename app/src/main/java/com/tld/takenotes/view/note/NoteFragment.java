@@ -1,5 +1,6 @@
 package com.tld.takenotes.view.note;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
         toast.show();
     }
 
+    @SuppressLint("ShowToast")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

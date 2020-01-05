@@ -16,6 +16,8 @@ import com.tld.takenotes.model.Option;
 import com.tld.takenotes.view.main.MainActivity;
 import com.tld.takenotes.viewmodel.splashscreen.SplashscreenViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -45,13 +47,13 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
 
         bingInterface.getImage().enqueue(new Callback<BingImageResponse>() {
             @Override
-            public void onResponse(Call<BingImageResponse> call, Response<BingImageResponse> response) {
+            public void onResponse(@NotNull Call<BingImageResponse> call, @NotNull Response<BingImageResponse> response) {
                 BingImageResponse bingImageResponse = response.body();
                 ((TakeNotes) getApplication()).getBingImage().setValue(bingImageResponse.getImages().get(0).getUrl());
             }
 
             @Override
-            public void onFailure(Call<BingImageResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<BingImageResponse> call, @NotNull Throwable t) {
 
             }
         });

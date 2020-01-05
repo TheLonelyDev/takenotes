@@ -9,6 +9,8 @@ import com.tld.takenotes.databinding.NoteListBinding;
 import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteListViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +27,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         notifyDataSetChanged();
     }
 
+    @NotNull
     @Override
-    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NoteViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         return NoteViewHolder.create(LayoutInflater.from(parent.getContext()), parent);
     }
 

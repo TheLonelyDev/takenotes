@@ -54,7 +54,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
 
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
 
-        if (getActivity().getClass().getName() == NoteDetailActivity.class.getName())
+        if (getActivity().getClass().getName().equals(NoteDetailActivity.class.getName()))
             getActivity().onBackPressed();
     }
 
@@ -83,7 +83,7 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
         DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        Note note = (Note) Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_PARCEL));
+        Note note = Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_PARCEL));
         viewModel.note.setValue(note);
 
         getChildFragmentManager().beginTransaction().replace(R.id.text_count_frame, NoteDetailTextCount.newFragment(note)).commitAllowingStateLoss();

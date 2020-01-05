@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 
 import com.google.firebase.firestore.DocumentId;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcel;
 
 @Entity
@@ -27,15 +28,15 @@ public class Note extends BaseObservable {
     @Ignore
     public String documentId;
 
-
     public Note() {
     }
 
+    @NotNull
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(@NotNull String id) {
         this.id = id;
     }
 
