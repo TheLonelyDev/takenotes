@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tld.takenotes.R;
 import com.tld.takenotes.TakeNotes;
@@ -55,7 +56,12 @@ public class NoteViewModel {
     public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
         this.loading = new ObservableBoolean();
         this.lastSearch = "";
+
         this.db = FirebaseFirestore.getInstance();
+        this.db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                .build());
 
         this.loading.set(true);
 
