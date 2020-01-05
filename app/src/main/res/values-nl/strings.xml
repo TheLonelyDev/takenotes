@@ -17,4 +17,6 @@
     <string name="note_created">Notitie aangemaakt</string>
     <string name="note_deleted">Notitie verwijdert</string>
     <string name="note_saved">Notitie opgeslagen</string>
+    <string name="title">Titel</string>
+    <string name="detail">Details</string>
 </resources>

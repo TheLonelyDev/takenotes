@@ -58,6 +58,7 @@
 
         <EditText
             android:id="@+id/note_title"
+            android:hint="@string/title"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="@dimen/no_dp"
             android:layout_height="@dimen/no_dp"
@@ -82,6 +83,7 @@
 
         <EditText
             android:id="@+id/note_detail"
+            android:hint="@string/detail"
             android:layout_width="@dimen/no_dp"
             android:layout_height="@dimen/no_dp"
             android:layout_marginBottom="@dimen/huge_dp"
