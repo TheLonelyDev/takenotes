@@ -1,5 +1,6 @@
 package com.tld.takenotes.dagger2.note;
 
+import android.content.Context;
 import android.content.res.Resources;
 
 import com.tld.takenotes.dagger2.Fragment;
@@ -20,8 +21,8 @@ public class NoteModule {
 
     @Fragment
     @Provides
-    NoteViewModel provideNoteViewModel(NoteRepository noteRepository, Resources resources) {
-        return new NoteViewModel(listener, noteRepository, resources);
+    NoteViewModel provideNoteViewModel(Context context, NoteRepository noteRepository, Resources resources) {
+        return new NoteViewModel(context, this.listener, noteRepository, resources);
     }
 
     @Fragment

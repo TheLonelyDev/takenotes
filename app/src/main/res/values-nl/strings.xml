@@ -19,4 +19,5 @@
     <string name="note_saved">Notitie opgeslagen</string>
     <string name="title">Titel</string>
     <string name="detail">Details</string>
+    <string name="no_network">Geen verbinding, cloud storage is gelimiteerd</string>
 </resources>

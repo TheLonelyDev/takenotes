@@ -18,4 +18,5 @@
     <string name="note_saved">Note saved</string>
     <string name="title">Title</string>
     <string name="detail">Detail</string>
+    <string name="no_network">No network, cloud storage is limited</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.tld.takenotes.viewmodel.note;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -53,14 +56,17 @@ public class NoteViewModel {
     @Getter
     private final ObservableBoolean loading;
 
-    public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
+    private final Context context;
+
+    public NoteViewModel(Context context, final NoteListener listener, NoteRepository noteRepository, Resources resources) {
+        this.context = context;
         this.loading = new ObservableBoolean();
         this.lastSearch = "";
 
         this.db = FirebaseFirestore.getInstance();
+
         this.db.setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                .setPersistenceEnabled(false)
                 .build());
 
         this.loading.set(true);
@@ -77,17 +83,18 @@ public class NoteViewModel {
                     note.setDetail("");
 
                     if (option == Option.CLOUD) {
-                        db.collection("notes").add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Search();
-                                note.setDocumentId(documentReference.getId());
+                        if (cmCheck())
+                            db.collection("notes").add(note).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Search();
+                                    note.setDocumentId(documentReference.getId());
 
-                                Toast(R.string.note_created);
+                                    Toast(R.string.note_created);
 
-                                TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
-                            }
-                        });
+                                    TakeNotes.getBusComponent().getOnNoteClicked().onNext(new NoteClickEvent(note));
+                                }
+                            });
                     } else {
                         noteRepository.newNote(note);
 
@@ -108,29 +115,31 @@ public class NoteViewModel {
                     loading.set(true);
                     lastSearch = ((NoteSearch) o).getKeyword().toLowerCase();
 
-                    if (option == Option.CLOUD)
-                        db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    List<Note> result = Objects.requireNonNull(task.getResult()).toObjects(Note.class);
+                    if (option == Option.CLOUD) {
+                        if (cmCheck())
+                            db.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        List<Note> result = Objects.requireNonNull(task.getResult()).toObjects(Note.class);
 
-                                    if (!lastSearch.isEmpty()) {
-                                        List<Note> toRemove = new ArrayList<>();
+                                        if (!lastSearch.isEmpty()) {
+                                            List<Note> toRemove = new ArrayList<>();
 
-                                        for (Note note : result) {
-                                            if (!(note.getName().toLowerCase().contains(lastSearch) || note.getDetail().toLowerCase().contains(lastSearch)))
-                                                toRemove.add(note);
+                                            for (Note note : result) {
+                                                if (!(note.getName().toLowerCase().contains(lastSearch) || note.getDetail().toLowerCase().contains(lastSearch)))
+                                                    toRemove.add(note);
+                                            }
+
+                                            result.removeAll(toRemove);
                                         }
 
-                                        result.removeAll(toRemove);
+                                        notes.postValue(result);
+                                        loading.set(false);
                                     }
-
-                                    notes.postValue(result);
-                                    loading.set(false);
                                 }
-                            }
-                        });
+                            });
+                    }
                     else
                         notes.addSource(noteRepository.searchNotes(String.format("%%%s%%", lastSearch)), new Observer<List<Note>>() {
                             @Override
@@ -147,15 +156,17 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) {
                 if (o instanceof DeleteCurrentNote) {
-                    if (option == Option.CLOUD)
-                        db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Search();
+                    if (option == Option.CLOUD) {
+                        if (cmCheck())
+                            db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Search();
 
-                                Toast(R.string.note_deleted);
-                            }
-                        });
+                                    Toast(R.string.note_deleted);
+                                }
+                            });
+                    }
                     else {
                         noteRepository.deleteNote(((DeleteCurrentNote) o).getNote());
 
@@ -171,15 +182,17 @@ public class NoteViewModel {
             @Override
             public void accept(Object o) {
                 if (o instanceof SaveCurrentNote) {
-                    if (option == Option.CLOUD)
-                        db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Search();
+                    if (option == Option.CLOUD) {
+                        if (cmCheck())
+                            db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Search();
 
-                                Toast(R.string.note_saved);
-                            }
-                        });
+                                    Toast(R.string.note_saved);
+                                }
+                            });
+                    }
                     else {
                         noteRepository.updateNote(((SaveCurrentNote) o).getNote());
 
@@ -200,7 +213,25 @@ public class NoteViewModel {
             }
         }));
 
-        Search();
+        if (cmCheck())
+            Search();
+    }
+
+    private boolean cmCheck() {
+        if (option == Option.CLOUD) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            // API 16 support
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+            if (!isConnected)
+                TakeNotes.getBusComponent().getToast().onNext(new ToastEvent(R.string.no_network));
+
+            return isConnected;
+        }
+
+        return true;
     }
 
     private void Search() {
