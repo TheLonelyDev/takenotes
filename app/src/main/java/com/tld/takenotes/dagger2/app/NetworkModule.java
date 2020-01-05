@@ -46,13 +46,12 @@ public class NetworkModule {
     @Provides
     @Singleton
     Retrofit provideRetrofit(OkHttpClient okHttpClient) {
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(Constants.BING_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
-        return retrofit;
     }
 
     @Provides

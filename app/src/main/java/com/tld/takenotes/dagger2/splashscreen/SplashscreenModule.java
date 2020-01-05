@@ -8,7 +8,7 @@ import dagger.Provides;
 
 @Module
 public class SplashscreenModule {
-    private SplashscreenViewModel.SplashscreenListener listener;
+    private final SplashscreenViewModel.SplashscreenListener listener;
 
     public SplashscreenModule(SplashscreenViewModel.SplashscreenListener listener) {
         this.listener = listener;

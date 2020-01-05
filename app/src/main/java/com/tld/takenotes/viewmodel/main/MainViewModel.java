@@ -14,7 +14,7 @@ import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 
 public class MainViewModel {
-    private CompositeDisposable disposable;
+    private final CompositeDisposable disposable;
 
     @Getter
     @Setter

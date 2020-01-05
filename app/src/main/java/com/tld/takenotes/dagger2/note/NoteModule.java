@@ -12,7 +12,7 @@ import dagger.Provides;
 
 @Module
 public class NoteModule {
-    private NoteViewModel.NoteListener listener;
+    private final NoteViewModel.NoteListener listener;
 
     public NoteModule(NoteViewModel.NoteListener listener) {
         this.listener = listener;

@@ -13,13 +13,13 @@ import lombok.Getter;
 
 public class NoteListViewModel {
     @Getter
-    private ObservableField<String> name;
+    private final ObservableField<String> name;
 
     @Getter
-    private ObservableField<String> detail;
+    private final ObservableField<String> detail;
 
     @Getter
-    private Note note;
+    private final Note note;
 
     public NoteListViewModel(Context context, Note note) {
         this.note = note;

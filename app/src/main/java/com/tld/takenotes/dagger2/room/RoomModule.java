@@ -17,7 +17,7 @@ import dagger.Provides;
 @Module
 public class RoomModule {
 
-    private RoomDatabase roomDatabase;
+    private final RoomDatabase roomDatabase;
 
     public RoomModule(Application application) {
         roomDatabase = Room.databaseBuilder(application, RoomDatabase.class, "takenotes").build();

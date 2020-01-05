@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class NoteDataSource implements NoteRepository {
-    private NoteDao noteDao;
+    private final NoteDao noteDao;
 
     @Inject
     public NoteDataSource(NoteDao productDao) {

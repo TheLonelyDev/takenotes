@@ -12,7 +12,7 @@ import io.reactivex.functions.Consumer;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class SplashscreenViewModel {
-    private CompositeDisposable disposable;
+    private final CompositeDisposable disposable;
 
     public SplashscreenViewModel(final SplashscreenViewModel.SplashscreenListener listener) {
 

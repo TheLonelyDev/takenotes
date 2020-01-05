@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 
 public class BingHandler implements BingInterface {
-    private BingRetrofit bingRetrofit;
+    private final BingRetrofit bingRetrofit;
 
     public BingHandler(Retrofit retrofit) {
         bingRetrofit = retrofit.create(BingRetrofit.class);

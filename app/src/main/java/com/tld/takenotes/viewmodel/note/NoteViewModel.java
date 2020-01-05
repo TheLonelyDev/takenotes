@@ -42,15 +42,15 @@ import lombok.Setter;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteViewModel {
-    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<>();
-    private FirebaseFirestore db;
+    public final MediatorLiveData<List<Note>> notes = new MediatorLiveData<>();
+    private final FirebaseFirestore db;
     private String lastSearch;
-    private CompositeDisposable disposable;
+    private final CompositeDisposable disposable;
     @Getter
     @Setter
     private Option option;
     @Getter
-    private ObservableBoolean loading;
+    private final ObservableBoolean loading;
 
     public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
         this.loading = new ObservableBoolean();
