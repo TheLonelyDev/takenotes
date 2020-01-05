@@ -18,6 +18,8 @@ import com.tld.takenotes.viewmodel.splashscreen.SplashscreenViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -25,13 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SplashscreenActivity extends AppCompatActivity implements SplashscreenViewModel.SplashscreenListener {
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected SplashscreenViewModel viewModel;
 
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected BingInterface bingInterface;
-
-    private ActivitySplashscreenBinding binding;
 
     @Override
     public void onOptionClicked(Option option) {
@@ -41,7 +43,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen);
+        ActivitySplashscreenBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_splashscreen);
 
         DaggerSplashscreenComponent.builder().appComponent(((TakeNotes) getApplication()).getAppComponent()).splashscreenModule(new SplashscreenModule(this)).build().inject(this);
 
@@ -49,7 +51,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Splashscr
             @Override
             public void onResponse(@NotNull Call<BingImageResponse> call, @NotNull Response<BingImageResponse> response) {
                 BingImageResponse bingImageResponse = response.body();
-                ((TakeNotes) getApplication()).getBingImage().setValue(bingImageResponse.getImages().get(0).getUrl());
+                ((TakeNotes) getApplication()).getBingImage().setValue(Objects.requireNonNull(bingImageResponse).getImages().get(0).getUrl());
             }
 
             @Override

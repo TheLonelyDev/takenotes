@@ -17,7 +17,7 @@ import dagger.Provides;
 import io.reactivex.subjects.PublishSubject;
 
 @Module
-public class BusModule {
+class BusModule {
     @Provides
     @Singleton
     static PublishSubject<NoteClickEvent> provideOnNoteClicked() {

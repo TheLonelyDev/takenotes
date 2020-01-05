@@ -28,6 +28,6 @@ public class TakeNotes extends MultiDexApplication {
         this.appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).roomModule(new RoomModule(this)).networkModule(new NetworkModule()).build();
         busComponent = DaggerBusComponent.create();
 
-        this.bingImage = new MutableLiveData<String>();
+        this.bingImage = new MutableLiveData<>();
     }
 }

@@ -15,6 +15,8 @@ import com.tld.takenotes.model.entity.Note;
 
 import org.parceler.Parcels;
 
+import java.util.Objects;
+
 public class NoteDetailActivity extends AppCompatActivity {
     public static Intent newIntent(Context context, Note note) {
         Intent intent = new Intent(context, NoteDetailActivity.class);
@@ -31,7 +33,7 @@ public class NoteDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
 
-        Note note = Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.NOTEDETAIL_PARCEL));
+        Note note = Parcels.unwrap(Objects.requireNonNull(getIntent().getExtras()).getParcelable(Constants.NOTEDETAIL_PARCEL));
 
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, NoteDetailFragment.newFragment(note)).commitAllowingStateLoss();

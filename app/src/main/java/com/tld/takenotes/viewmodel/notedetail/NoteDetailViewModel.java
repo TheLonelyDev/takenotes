@@ -19,11 +19,9 @@ import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteDetailViewModel {
     public MutableLiveData<Note> note = new MutableLiveData<>();
-    private NoteDetailListener listener;
     private CompositeDisposable disposable;
 
     public NoteDetailViewModel(final NoteDetailListener listener) {
-        this.listener = listener;
 
         this.disposable = new CompositeDisposable();
 

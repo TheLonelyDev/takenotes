@@ -30,6 +30,7 @@ import com.tld.takenotes.model.entity.Note;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -41,9 +42,7 @@ import lombok.Setter;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteViewModel {
-    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<List<Note>>();
-    private NoteRepository noteRepository;
-    private NoteListener listener;
+    public MediatorLiveData<List<Note>> notes = new MediatorLiveData<>();
     private FirebaseFirestore db;
     private String lastSearch;
     private CompositeDisposable disposable;
@@ -54,8 +53,6 @@ public class NoteViewModel {
     private ObservableBoolean loading;
 
     public NoteViewModel(final NoteListener listener, NoteRepository noteRepository, Resources resources) {
-        this.listener = listener;
-        this.noteRepository = noteRepository;
         this.loading = new ObservableBoolean();
         this.lastSearch = "";
         this.db = FirebaseFirestore.getInstance();
@@ -110,10 +107,10 @@ public class NoteViewModel {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    List<Note> result = task.getResult().toObjects(Note.class);
+                                    List<Note> result = Objects.requireNonNull(task.getResult()).toObjects(Note.class);
 
                                     if (!lastSearch.isEmpty()) {
-                                        List<Note> toRemove = new ArrayList<Note>();
+                                        List<Note> toRemove = new ArrayList<>();
 
                                         for (Note note : result) {
                                             if (!(note.getName().toLowerCase().contains(lastSearch) || note.getDetail().toLowerCase().contains(lastSearch)))
@@ -200,11 +197,11 @@ public class NoteViewModel {
         Search();
     }
 
-    protected void Search() {
+    private void Search() {
         TakeNotes.getBusComponent().getNoteSearch().onNext(new NoteSearch(lastSearch));
     }
 
-    protected void Toast(int resourceId) {
+    private void Toast(int resourceId) {
         TakeNotes.getBusComponent().getToast().onNext(new ToastEvent(resourceId));
     }
 

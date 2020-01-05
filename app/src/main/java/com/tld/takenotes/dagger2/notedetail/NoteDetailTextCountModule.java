@@ -8,7 +8,7 @@ import dagger.Provides;
 
 @Module
 public class NoteDetailTextCountModule {
-    NoteDetailTextCountViewModel.NoteDetailTextListener listener;
+    private NoteDetailTextCountViewModel.NoteDetailTextListener listener;
 
     public NoteDetailTextCountModule(NoteDetailTextCountViewModel.NoteDetailTextListener listener) {
         this.listener = listener;

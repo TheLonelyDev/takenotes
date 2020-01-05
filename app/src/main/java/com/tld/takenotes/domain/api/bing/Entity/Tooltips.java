@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("unused")
-public class Tooltips {
+class Tooltips {
 
     private String loading;
     private String next;

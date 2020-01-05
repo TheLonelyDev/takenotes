@@ -22,12 +22,13 @@ import com.tld.takenotes.view.notedetail.NoteDetailActivity;
 import com.tld.takenotes.view.notedetail.NoteDetailFragment;
 import com.tld.takenotes.viewmodel.main.MainViewModel;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainViewModel.MainListener {
     @Inject
     protected MainViewModel viewModel;
-    private ActivityMainBinding binding;
 
     public static Intent newIntent(Context context, Option option) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -53,11 +54,11 @@ public class MainActivity extends AppCompatActivity implements MainViewModel.Mai
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         DaggerMainComponent.builder().appComponent(((TakeNotes) getApplication()).getAppComponent()).mainModule(new MainModule(this)).build().inject(this);
 
-        Option option = Option.valueOf(getIntent().getExtras().getString(Constants.NOTEDETAIL_PARCEL));
+        Option option = Option.valueOf(Objects.requireNonNull(getIntent().getExtras()).getString(Constants.NOTEDETAIL_PARCEL));
         viewModel.setOption(option);
 
 

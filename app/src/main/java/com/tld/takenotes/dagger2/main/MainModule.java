@@ -8,7 +8,7 @@ import dagger.Provides;
 
 @Module
 public class MainModule {
-    MainViewModel.MainListener listener;
+    private MainViewModel.MainListener listener;
 
     public MainModule(MainViewModel.MainListener listener) {
         this.listener = listener;

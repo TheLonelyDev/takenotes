@@ -57,7 +57,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             return new NoteAdapter.NoteViewHolder(binding);
         }
 
-        public void bind(NoteListViewModel viewModel) {
+        void bind(NoteListViewModel viewModel) {
             binding.setViewModel(viewModel);
             binding.executePendingBindings();
         }

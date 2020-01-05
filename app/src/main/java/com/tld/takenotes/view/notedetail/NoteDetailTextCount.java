@@ -22,12 +22,14 @@ import com.tld.takenotes.viewmodel.notedetail.NoteDetailTextCountViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 public class NoteDetailTextCount extends Fragment implements NoteDetailTextCountViewModel.NoteDetailTextListener {
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected NoteDetailTextCountViewModel viewModel;
-    private FragmentNoteDetailTextCountBinding binding;
 
     public static NoteDetailTextCount newFragment(Note note) {
         NoteDetailTextCount fragment = new NoteDetailTextCount();
@@ -41,17 +43,17 @@ public class NoteDetailTextCount extends Fragment implements NoteDetailTextCount
 
     @Override
     public void NoteTyped(NoteTyped noteTyped) {
-        viewModel.getTextCount().set(getContext().getString(R.string.text_count, noteTyped.getDetail().length()));
+        viewModel.getTextCount().set(Objects.requireNonNull(getContext()).getString(R.string.text_count, noteTyped.getDetail().length()));
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail_text_count, container, false);
-        DaggerNoteDetailTextCountComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailTextCountModule(new NoteDetailTextCountModule(this)).build().inject(this);
+        FragmentNoteDetailTextCountBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail_text_count, container, false);
+        DaggerNoteDetailTextCountComponent.builder().appComponent(((TakeNotes) (Objects.requireNonNull(getActivity()).getApplication())).getAppComponent()).noteDetailTextCountModule(new NoteDetailTextCountModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        viewModel.getTextCount().set(getContext().getString(R.string.text_count, ((Note) Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_TEXTCOUNT_PARCEL))).getDetail().length()));
+        viewModel.getTextCount().set(Objects.requireNonNull(getContext()).getString(R.string.text_count, ((Note) Objects.requireNonNull(Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_TEXTCOUNT_PARCEL)))).getDetail().length()));
 
         return binding.getRoot();
     }

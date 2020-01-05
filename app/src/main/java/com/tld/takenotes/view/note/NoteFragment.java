@@ -24,15 +24,17 @@ import com.tld.takenotes.model.entity.Note;
 import com.tld.takenotes.viewmodel.note.NoteViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 public class NoteFragment extends Fragment implements NoteViewModel.NoteListener {
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected NoteViewModel viewModel;
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected NoteAdapter adapter;
-    private FragmentNoteBinding binding;
     private Toast toast;
 
     public static NoteFragment newFragment(Option option) {
@@ -61,14 +63,14 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
+        FragmentNoteBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note, container, false);
 
-        DaggerNoteComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
+        DaggerNoteComponent.builder().appComponent(((TakeNotes) (Objects.requireNonNull(getActivity()).getApplication())).getAppComponent()).noteModule(new NoteModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
         binding.recyclerView.setAdapter(adapter);
 
-        Option option = Option.valueOf(getArguments().getString(Constants.NOTE_PARCEL));
+        Option option = Option.valueOf(Objects.requireNonNull(getArguments()).getString(Constants.NOTE_PARCEL));
         viewModel.setOption(option);
 
         toast = Toast.makeText(getActivity().getApplicationContext(), "", Toast.LENGTH_SHORT);
@@ -80,12 +82,7 @@ public class NoteFragment extends Fragment implements NoteViewModel.NoteListener
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        viewModel.notes.observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                OnLoaded(notes);
-            }
-        });
+        viewModel.notes.observe(this, this::OnLoaded);
     }
 
     @Override

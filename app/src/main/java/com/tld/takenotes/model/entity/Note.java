@@ -19,10 +19,10 @@ import org.parceler.Parcel;
 public class Note extends BaseObservable {
     @NonNull
     @PrimaryKey
-    public String id;
-    public String name;
+    private String id;
+    private String name;
 
-    public String detail;
+    private String detail;
 
     @DocumentId
     @Ignore

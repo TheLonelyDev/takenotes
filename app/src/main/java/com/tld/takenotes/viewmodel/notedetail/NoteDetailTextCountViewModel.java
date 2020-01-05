@@ -12,13 +12,11 @@ import lombok.Getter;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteDetailTextCountViewModel {
-    private NoteDetailTextListener listener;
     private CompositeDisposable disposable;
     @Getter
     private ObservableField<String> textCount;
 
     public NoteDetailTextCountViewModel(final NoteDetailTextCountViewModel.NoteDetailTextListener listener) {
-        this.listener = listener;
         this.textCount = new ObservableField<>();
 
         this.disposable = new CompositeDisposable();

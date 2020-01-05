@@ -14,7 +14,6 @@ import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 
 public class MainViewModel {
-    private MainListener listener;
     private CompositeDisposable disposable;
 
     @Getter
@@ -26,7 +25,6 @@ public class MainViewModel {
     private Option option;
 
     public MainViewModel(final MainListener listener) {
-        this.listener = listener;
 
         this.disposable = new CompositeDisposable();
 

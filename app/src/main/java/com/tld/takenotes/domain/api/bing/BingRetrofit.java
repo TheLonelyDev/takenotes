@@ -6,7 +6,7 @@ import com.tld.takenotes.domain.api.bing.Entity.BingImageResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface BingRetrofit {
+interface BingRetrofit {
     @GET(Constants.BING_API_DAILY_IMAGE)
     Call<BingImageResponse> getImage();
 }

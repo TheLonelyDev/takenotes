@@ -28,10 +28,12 @@ import com.tld.takenotes.viewmodel.notedetail.NoteDetailViewModel;
 import org.parceler.Parcels;
 
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.NoteDetailListener, TextToSpeech.OnInitListener {
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected NoteDetailViewModel viewModel;
     private FragmentNoteDetailBinding binding;
@@ -80,10 +82,10 @@ public class NoteDetailFragment extends Fragment implements NoteDetailViewModel.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_detail, container, false);
 
-        DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (getActivity().getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
+        DaggerNoteDetailComponent.builder().appComponent(((TakeNotes) (Objects.requireNonNull(getActivity()).getApplication())).getAppComponent()).noteDetailModule(new NoteDetailModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        Note note = Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_PARCEL));
+        Note note = Parcels.unwrap(Objects.requireNonNull(getArguments()).getParcelable(Constants.NOTEDETAIL_PARCEL));
         viewModel.note.setValue(note);
 
         getChildFragmentManager().beginTransaction().replace(R.id.text_count_frame, NoteDetailTextCount.newFragment(note)).commitAllowingStateLoss();
