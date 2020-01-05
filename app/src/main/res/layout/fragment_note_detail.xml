@@ -58,13 +58,14 @@
 
         <EditText
             android:id="@+id/note_title"
-            android:hint="@string/title"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="@dimen/no_dp"
             android:layout_height="@dimen/no_dp"
             android:layout_marginTop="@dimen/normal_dp"
             android:background="@android:color/transparent"
             android:gravity="top|start"
+            android:hint="@string/title"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:maxLines="1"
             android:padding="@dimen/normal_dp"
@@ -78,18 +79,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/note_banner"
             app:layout_constraintEnd_toEndOf="@+id/note_banner_bottom_shader"
             app:layout_constraintStart_toStartOf="@+id/note_banner_bottom_shader"
-            app:layout_constraintTop_toBottomOf="@+id/note_banner_top_shader"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toBottomOf="@+id/note_banner_top_shader" />
 
         <EditText
             android:id="@+id/note_detail"
-            android:hint="@string/detail"
             android:layout_width="@dimen/no_dp"
             android:layout_height="@dimen/no_dp"
             android:layout_marginBottom="@dimen/huge_dp"
             android:addTextChangedListener="@{viewModel.onTextChanged()}"
             android:background="@android:color/transparent"
             android:gravity="top|start"
+            android:hint="@string/detail"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:padding="@dimen/normal_dp"
             android:text="@={viewModel.note.detail}"
@@ -99,8 +100,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/note_banner_top_shader"
             app:layout_constraintTop_toBottomOf="@+id/note_banner"
-            app:layout_constraintVertical_bias="0.0"
-            android:importantForAutofill="no" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/main_fab"

@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import static org.hamcrest.core.IsEqual.equalTo;

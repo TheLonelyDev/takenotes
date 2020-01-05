@@ -41,9 +41,9 @@
                 android:addTextChangedListener="@{viewModel.onTextChanged()}"
                 android:background="@null"
                 android:hint="@string/search_hint"
+                android:importantForAutofill="no"
                 android:inputType="text"
-                android:padding="@dimen/normal_dp"
-                android:importantForAutofill="no" />
+                android:padding="@dimen/normal_dp" />
         </RelativeLayout>
 
         <ProgressBar
