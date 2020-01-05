@@ -53,7 +53,7 @@ public class NoteDetailTextCount extends Fragment implements NoteDetailTextCount
         DaggerNoteDetailTextCountComponent.builder().appComponent(((TakeNotes) (Objects.requireNonNull(getActivity()).getApplication())).getAppComponent()).noteDetailTextCountModule(new NoteDetailTextCountModule(this)).build().inject(this);
 
         binding.setViewModel(viewModel);
-        viewModel.getTextCount().set(Objects.requireNonNull(getContext()).getString(R.string.text_count, ((Note) Objects.requireNonNull(Parcels.unwrap(getArguments().getParcelable(Constants.NOTEDETAIL_TEXTCOUNT_PARCEL)))).getDetail().length()));
+        viewModel.getTextCount().set(Objects.requireNonNull(getContext()).getString(R.string.text_count, ((Note) Objects.requireNonNull(Parcels.unwrap(Objects.requireNonNull(getArguments()).getParcelable(Constants.NOTEDETAIL_TEXTCOUNT_PARCEL)))).getDetail().length()));
 
         return binding.getRoot();
     }

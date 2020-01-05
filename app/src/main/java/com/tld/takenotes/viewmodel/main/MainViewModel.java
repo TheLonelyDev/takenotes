@@ -30,7 +30,7 @@ public class MainViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getOnNoteClicked().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof NoteClickEvent) {
                     listener.onNoteClicked(((NoteClickEvent) o).getNote());
                 }

@@ -18,8 +18,8 @@ import io.reactivex.functions.Consumer;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteDetailViewModel {
-    public MutableLiveData<Note> note = new MutableLiveData<>();
-    private CompositeDisposable disposable;
+    public final MutableLiveData<Note> note = new MutableLiveData<>();
+    private final CompositeDisposable disposable;
 
     public NoteDetailViewModel(final NoteDetailListener listener) {
 
@@ -27,7 +27,7 @@ public class NoteDetailViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof DeleteCurrentNote) {
                     listener.DeleteNote((DeleteCurrentNote) o);
                 }
@@ -36,7 +36,7 @@ public class NoteDetailViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getTTSNote().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof TTSNote) {
                     listener.TTS((TTSNote) o);
                 }

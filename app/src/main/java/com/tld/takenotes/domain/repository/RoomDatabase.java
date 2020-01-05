@@ -7,6 +7,7 @@ import com.tld.takenotes.model.entity.Note;
 
 @Database(entities = {Note.class}, version = RoomDatabase.VERSION)
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
+    @SuppressWarnings("WeakerAccess")
     static final int VERSION = 1;
 
     public abstract NoteDao getNoteDao();

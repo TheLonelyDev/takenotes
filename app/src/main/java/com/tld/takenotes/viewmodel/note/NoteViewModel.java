@@ -63,7 +63,7 @@ public class NoteViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getCreateNewNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof CreateNewNote) {
                     Note note = new Note();
                     note.setId(UUID.randomUUID().toString());
@@ -97,7 +97,7 @@ public class NoteViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getNoteSearch().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof NoteSearch) {
                     loading.set(true);
                     lastSearch = ((NoteSearch) o).getKeyword().toLowerCase();
@@ -139,7 +139,7 @@ public class NoteViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getDeleteCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof DeleteCurrentNote) {
                     if (option == Option.CLOUD)
                         db.collection("notes").document(((DeleteCurrentNote) o).getNote().documentId).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -163,7 +163,7 @@ public class NoteViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getSaveCurrentNote().observeOn(Schedulers.io()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof SaveCurrentNote) {
                     if (option == Option.CLOUD)
                         db.collection("notes").document(((SaveCurrentNote) o).getNote().documentId).set(((SaveCurrentNote) o).getNote()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -187,7 +187,7 @@ public class NoteViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getToast().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof ToastEvent) {
                     listener.ShowToast(((ToastEvent) o).getResourceId());
                 }

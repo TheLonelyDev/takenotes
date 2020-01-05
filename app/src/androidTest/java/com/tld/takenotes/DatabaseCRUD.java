@@ -34,12 +34,12 @@ public class DatabaseCRUD {
     }
 
     @After
-    public void onDestroy() throws IOException {
+    public void onDestroy() {
         db.close();
     }
 
     @Test
-    public void writeNote() throws Exception {
+    public void writeNote() {
         Note note = new Note();
         note.setId(UUID.randomUUID().toString());
         note.setName("New note...");
@@ -51,7 +51,7 @@ public class DatabaseCRUD {
     }
 
     @Test
-    public void deleteNote() throws Exception {
+    public void deleteNote() {
         Note note = new Note();
         note.setId(UUID.randomUUID().toString());
         note.setName("New note...");
@@ -67,7 +67,7 @@ public class DatabaseCRUD {
     }
 
     @Test
-    public void updateNote() throws Exception {
+    public void updateNote() {
         Note note = new Note();
         note.setId(UUID.randomUUID().toString());
         note.setName("New note...");

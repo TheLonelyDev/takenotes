@@ -27,6 +27,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainViewModel.MainListener {
+    @SuppressWarnings("WeakerAccess")
     @Inject
     protected MainViewModel viewModel;
 

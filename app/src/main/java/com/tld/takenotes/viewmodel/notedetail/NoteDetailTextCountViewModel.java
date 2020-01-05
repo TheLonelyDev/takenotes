@@ -12,9 +12,9 @@ import lombok.Getter;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public class NoteDetailTextCountViewModel {
-    private CompositeDisposable disposable;
+    private final CompositeDisposable disposable;
     @Getter
-    private ObservableField<String> textCount;
+    private final ObservableField<String> textCount;
 
     public NoteDetailTextCountViewModel(final NoteDetailTextCountViewModel.NoteDetailTextListener listener) {
         this.textCount = new ObservableField<>();
@@ -23,7 +23,7 @@ public class NoteDetailTextCountViewModel {
 
         this.disposable.add(TakeNotes.getBusComponent().getNoteTyped().observeOn(mainThread()).subscribe(new Consumer<Object>() {
             @Override
-            public void accept(Object o) throws Exception {
+            public void accept(Object o) {
                 if (o instanceof NoteTyped) {
                     listener.NoteTyped((NoteTyped) o);
                 }

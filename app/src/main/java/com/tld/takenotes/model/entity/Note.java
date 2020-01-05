@@ -17,6 +17,7 @@ import org.parceler.Parcel;
         value = Parcel.Serialization.BEAN,
         analyze = {Note.class})
 public class Note extends BaseObservable {
+    @SuppressWarnings("NullableProblems")
     @NonNull
     @PrimaryKey
     private String id;
